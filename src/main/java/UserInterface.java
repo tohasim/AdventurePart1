@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class UserInterface {
-    Scanner keyboard;
+    private Scanner keyboard;
     public UserInterface(){
         keyboard = new Scanner(System.in);
     }
@@ -61,5 +61,10 @@ public class UserInterface {
             }
         }
         return tryAgain;
+    }
+
+    public void enterRoom(Room currentRoom, String direction) {
+        System.out.printf("You went %s, and entered a new room\n", direction);
+        PrintDescription(currentRoom);
     }
 }
