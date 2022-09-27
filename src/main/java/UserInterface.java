@@ -36,6 +36,15 @@ public class UserInterface {
     public void PrintDescription(Room currentRoom) {
         System.out.printf("You are in the room called \"%s\":\n" +
                 "  %s\n", currentRoom.getName(), currentRoom.getDescription());
+        if (!currentRoom.triedRooms.isEmpty()){
+            String availableDirections = "There are doors to the ";
+            for (Room triedRoom : currentRoom.triedRooms) {
+                if (triedRoom != null)
+                    availableDirections += currentRoom.getDirection(triedRoom) + " and ";
+            }
+            availableDirections = availableDirections.substring(0, availableDirections.length() - 5);
+            System.out.println(availableDirections);
+        }
     }
 
     public void ExitMessage() {

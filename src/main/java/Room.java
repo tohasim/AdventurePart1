@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Room{
     private Room north;
     private Room south;
@@ -6,9 +8,13 @@ public class Room{
     private String name;
     private String description;
     private boolean visited;
+    private boolean locked;
+
+    public ArrayList<Room> triedRooms;
 
     public Room(String name) {
         this.name = name;
+        triedRooms = new ArrayList<>();
     }
 
     public Room getRoom(String direction) {
@@ -68,5 +74,31 @@ public class Room{
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    public String getDirection(Room triedRoom) {
+        String direction = "";
+        if (north != null && triedRoom.getName().equals(north.getName())){
+            direction = "north";
+        } else if (south != null && triedRoom.getName().equals(south.getName())){
+            direction = "south";
+        } else if (east != null && triedRoom.getName().equals(east.getName())){
+            direction = "east";
+        } else if (west != null && triedRoom.getName().equals(west.getName())){
+            direction = "west";
+        }
+        return direction;
+    }
+
+    public void unlockRoom(Room roomToUnlock){
+        roomToUnlock.locked = false;
+    }
+
+    public void lockRoom() {
+        this.locked = true;
+    }
+
+    public boolean isLocked() {
+        return locked;
     }
 }

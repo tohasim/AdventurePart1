@@ -46,6 +46,9 @@ public class Creator {
         roomSix.setSouth(roomNine);
         roomSeven.setEast(roomEight);
         roomEight.setEast(roomNine);
+
+        roomFour.lockRoom();
+        roomFive.lockRoom();
     }
 
     public Room getRoomOne() {
