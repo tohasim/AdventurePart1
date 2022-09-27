@@ -18,7 +18,7 @@ public class Player {
         Room roomToVisit = currentRoom.getRoom(direction);
         if (roomToVisit != null){
             if (roomToVisit.isLocked()){
-                System.out.println("Room is locked");
+                System.out.println("Room is TESTlocked");
                 roomToUnlock = roomToVisit;
                 awaitingUnlock = true;
             }else {
