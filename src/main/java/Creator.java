@@ -37,15 +37,15 @@ public class Creator {
         roomNine = new Room("Ninth room");
         roomNine.setDescription("This is the ninth room, theres a devil mouth in the floor which swallowed you whole.");
 
-        roomOne.setRooms(null, roomFour, roomTwo, null);
-        roomTwo.setRooms(null, null, roomThree, roomOne);
-        roomThree.setRooms(null, roomSix, null, roomTwo);
-        roomFour.setRooms(roomOne, roomSeven, null, null);
-        roomFive.setRooms(null, roomEight, null, null);
-        roomSix.setRooms(roomThree, roomNine, null, null);
-        roomSeven.setRooms(roomFour, null, roomEight, null);
-        roomEight.setRooms(roomFive, null, roomNine, roomSeven);
-        roomNine.setRooms(roomSix, null, null, roomEight);
+        roomOne.setSouth(roomFour);
+        roomOne.setEast(roomTwo);
+        roomThree.setWest(roomTwo);
+        roomFour.setSouth(roomSeven);
+        roomFive.setSouth(roomEight);
+        roomSix.setNorth(roomThree);
+        roomSix.setSouth(roomNine);
+        roomSeven.setEast(roomEight);
+        roomEight.setEast(roomNine);
     }
 
     public Room getRoomOne() {

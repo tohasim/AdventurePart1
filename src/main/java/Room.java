@@ -32,10 +32,32 @@ public class Room{
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setRooms(Room north, Room south, Room east, Room west) {
-        this.north = north;
-        this.south = south;
-        this.east = east;
-        this.west = west;
+
+    public void setSouth(Room connectedRoom) {
+        this.south = connectedRoom;
+        if (connectedRoom.north == null){
+            connectedRoom.setNorth(this);
+        }
+    }
+
+    public void setEast(Room connectedRoom) {
+        this.east = connectedRoom;
+        if (connectedRoom.west == null){
+            connectedRoom.setWest(this);
+        }
+    }
+
+    public void setWest(Room connectedRoom) {
+        this.west = connectedRoom;
+        if (connectedRoom.east == null){
+            connectedRoom.setEast(this);
+        }
+    }
+
+    public void setNorth(Room connectedRoom) {
+        this.north = connectedRoom;
+        if (connectedRoom.south == null){
+            connectedRoom.setSouth(this);
+        }
     }
 }
