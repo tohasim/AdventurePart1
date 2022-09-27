@@ -5,6 +5,7 @@ public class Room{
     private Room west;
     private String name;
     private String description;
+    private boolean visited;
 
     public Room(String name) {
         this.name = name;
@@ -59,5 +60,13 @@ public class Room{
         if (connectedRoom.south == null){
             connectedRoom.setSouth(this);
         }
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }

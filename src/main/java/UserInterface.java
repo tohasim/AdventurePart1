@@ -63,8 +63,11 @@ public class UserInterface {
         return tryAgain;
     }
 
-    public void enterRoom(Room currentRoom, String direction) {
+    public void enterNewRoom(Room enteredRoom, String direction) {
         System.out.printf("You went %s, and entered a new room\n", direction);
-        PrintDescription(currentRoom);
+        PrintDescription(enteredRoom);
+    }
+    public void enterRoom(Room enteredRoom, String direction){
+        System.out.printf("You went %s, and entered %s \n", direction, enteredRoom.getName());
     }
 }
