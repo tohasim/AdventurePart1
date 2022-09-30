@@ -2,8 +2,7 @@ import java.util.ArrayList;
 
 public class Player {
     private boolean awaitingUnlock = false;
-    //TODO: Make private
-    public Room roomToUnlock = null;
+    private Room roomToUnlock = null;
     private Room currentRoom;
     private final UserInterface UI;
     Player(Room currentRoom, UserInterface UI){

@@ -39,5 +39,4 @@ public class Adventure {
         UI.ExitMessage();
         shouldRun = false;
     }
-
 }
