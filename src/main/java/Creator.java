@@ -49,6 +49,8 @@ public class Creator {
 
         roomFour.lockRoom();
         roomFive.lockRoom();
+        roomTwo.turnOffLight();
+        roomEight.turnOffLight();
     }
 
     public Room getRoomOne() {

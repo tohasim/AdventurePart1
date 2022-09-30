@@ -22,11 +22,15 @@ public class Player {
                 roomToUnlock = roomToVisit;
                 awaitingUnlock = true;
             }else {
-                if (roomToVisit.isVisited()) {
-                    UI.enterRoom(roomToVisit, direction);
-                } else {
-                    UI.enterNewRoom(roomToVisit, direction);
-                    roomToVisit.setVisited(true);
+                if (roomToVisit.isLightOn()){
+                    if (roomToVisit.isVisited()) {
+                        UI.enterRoom(roomToVisit, direction);
+                    } else {
+                        UI.enterNewRoom(roomToVisit, direction);
+                        roomToVisit.setVisited(true);
+                    }
+                }else {
+                    System.out.println("The room you entered is dark, go back, or turn on the light");
                 }
                 if (!roomToVisit.triedRooms.contains(currentRoom))
                     roomToVisit.triedRooms.add(currentRoom);
@@ -46,6 +50,12 @@ public class Player {
             roomToUnlock = null;
         }else{
             System.out.println("No locked rooms nearby");
+        }
+    }
+
+    public void TurnOnLight() {
+        if (!currentRoom.isLightOn()){
+            UI.turnOnLight(currentRoom);
         }
     }
 }

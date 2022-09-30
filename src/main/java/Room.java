@@ -9,12 +9,14 @@ public class Room{
     private String description;
     private boolean visited;
     private boolean locked;
+    private boolean lightOn;
 
     public ArrayList<Room> triedRooms;
 
     public Room(String name) {
         this.name = name;
         triedRooms = new ArrayList<>();
+        lightOn  = true;
     }
 
     public Room getRoom(String direction) {
@@ -96,6 +98,18 @@ public class Room{
 
     public void lockRoom() {
         this.locked = true;
+    }
+
+    public boolean isLightOn() {
+        return lightOn;
+    }
+
+    public void turnOnLight(){
+        lightOn = true;
+    }
+
+    public void turnOffLight(){
+        lightOn = false;
     }
 
     public boolean isLocked() {

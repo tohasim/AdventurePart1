@@ -13,6 +13,7 @@ public class Adventure {
                 case "help" -> UI.Help();
                 case "exit" -> EndGame(UI);
                 case "unlock" -> player.Unlock();
+                case "turn on light" -> player.TurnOnLight();
                 default -> System.out.println("Unknown command, type \"help\" for a list of commands");
             }
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))

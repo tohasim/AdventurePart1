@@ -62,10 +62,7 @@ public class UserInterface {
                     tryAgain = true;
                     answered = true;
                 }
-                case "no" -> {
-                    tryAgain = false;
-                    answered = true;
-                }
+                case "no" -> answered = true;
                 default -> System.out.println("Please write either \"Yes\" or \"No\"");
             }
         }
@@ -78,5 +75,11 @@ public class UserInterface {
     }
     public void enterRoom(Room enteredRoom, String direction){
         System.out.printf("You went %s, and entered %s \n", direction, enteredRoom.getName());
+    }
+
+    public void turnOnLight(Room currentRoom) {
+        System.out.println("The light has been turned on, you can now see the room");
+        PrintDescription(currentRoom);
+        currentRoom.turnOnLight();
     }
 }
