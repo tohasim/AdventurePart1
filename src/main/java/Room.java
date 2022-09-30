@@ -10,13 +10,14 @@ public class Room{
     private boolean visited;
     private boolean locked;
     private boolean lightOn;
-
+    private ArrayList<Item> items;
     public ArrayList<Room> triedRooms;
 
     public Room(String name) {
         this.name = name;
         triedRooms = new ArrayList<>();
         lightOn  = true;
+        items = new ArrayList<Item>();
     }
 
     public Room getRoom(String direction) {
@@ -114,5 +115,21 @@ public class Room{
 
     public boolean isLocked() {
         return locked;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void addItems(Item item){
+        items.add(item);
+    }
+
+    public void addItems(ArrayList<Item> items){
+        this.items.addAll(items);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 }

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player {
     private boolean awaitingUnlock = false;
     //TODO: Make private
@@ -57,5 +59,16 @@ public class Player {
         if (!currentRoom.isLightOn()){
             UI.turnOnLight(currentRoom);
         }
+    }
+
+    public void takeItem(String itemToTake) {
+        for (Item item : currentRoom.getItems()){
+            if (item.toString().contains(itemToTake)){
+                UI.takeItem(item);
+                currentRoom.removeItem(item);
+                return;
+            }
+        }
+        System.out.printf("No item like that was found in the room");
     }
 }

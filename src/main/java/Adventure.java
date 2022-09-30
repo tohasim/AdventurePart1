@@ -4,6 +4,11 @@ public class Adventure {
         shouldRun = true;
         while(shouldRun){
             String userChoice = UI.PromptUserChoice();
+            String itemToTake = null;
+            if (userChoice.contains("take")){
+                itemToTake = userChoice.substring(5);
+                userChoice = "take";
+            }
             switch (userChoice.toLowerCase()){
                 case "go north", "north", "n" -> player.GoDirection("north");
                 case "go south", "south", "s" -> player.GoDirection("south");
@@ -14,6 +19,7 @@ public class Adventure {
                 case "exit" -> EndGame(UI);
                 case "unlock" -> player.Unlock();
                 case "turn on light" -> player.TurnOnLight();
+                case "take" ->  player.takeItem(itemToTake);
                 default -> System.out.println("Unknown command, type \"help\" for a list of commands");
             }
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))

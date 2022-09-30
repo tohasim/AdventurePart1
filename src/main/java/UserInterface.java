@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -17,13 +18,14 @@ public class UserInterface {
 
     public void Help() {
         System.out.println("The following commands are available: \n" +
+                "-Look: get a description of the room you are in \n" +
                 "-Go {direction}: go to a room in the specified direction.\n" +
                 "  directions:\n" +
                 "    north\n" +
                 "    south\n" +
                 "    east\n" +
                 "    west\n" +
-                "-Look: get a description of the room you are in \n" +
+                "-Take {item}: take the item specified in {item}\n" +
                 "-Help: get this message \n" +
                 "-Exit: exit the game");
     }
@@ -35,9 +37,22 @@ public class UserInterface {
 
     public void PrintDescription(Room currentRoom) {
         System.out.printf("You are in the room called \"%s\":\n" +
-                "  %s\n", currentRoom.getName(), currentRoom.getDescription());
+                "%s\n", currentRoom.getName(), currentRoom.getDescription());
+        if (!currentRoom.getItems().isEmpty()){
+            String availableItems = "This room contains ";
+            ArrayList<Item> items = currentRoom.getItems();
+            for (Item item : items) {
+                if (items.indexOf(item) != items.size() - 2){
+                    availableItems += item + ", ";
+                }else {
+                    availableItems += item + " and ";
+                }
+            }
+            availableItems = availableItems.substring(0, availableItems.length() - 2);
+            System.out.println(availableItems);
+        }
         if (!currentRoom.triedRooms.isEmpty()){
-            String availableDirections = "There are doors to the ";
+            String availableDirections = "You have found doors to the ";
             for (Room triedRoom : currentRoom.triedRooms) {
                 if (triedRoom != null)
                     availableDirections += currentRoom.getDirection(triedRoom) + " and ";
@@ -81,5 +96,9 @@ public class UserInterface {
         System.out.println("The light has been turned on, you can now see the room");
         PrintDescription(currentRoom);
         currentRoom.turnOnLight();
+    }
+
+    public void takeItem(Item item) {
+        System.out.printf("You took %s\n", item);
     }
 }
