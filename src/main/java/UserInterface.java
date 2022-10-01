@@ -26,6 +26,8 @@ public class UserInterface {
                 "    east\n" +
                 "    west\n" +
                 "-Take {item}: take the item specified in {item}\n" +
+                "-Place {item}: place the item specified in {item} from your inventory to the room\n" +
+                "-Inventory: show inventory\n" +
                 "-Help: get this message \n" +
                 "-Exit: exit the game");
     }
@@ -100,5 +102,15 @@ public class UserInterface {
 
     public void takeItem(Item item) {
         System.out.printf("You took %s\n", item);
+    }
+
+    public void placeItem(Item item) {
+        System.out.printf("You placed %s in the room.\n", item);
+    }
+    public void printInventory(ArrayList<Item> inventory){
+        System.out.println("Your inventory: ");
+        for (Item item : inventory) {
+            System.out.printf(" -%s\n", item);
+        }
     }
 }

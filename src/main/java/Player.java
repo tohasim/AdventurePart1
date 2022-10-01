@@ -4,11 +4,13 @@ public class Player {
     private boolean awaitingUnlock = false;
     private Room roomToUnlock = null;
     private Room currentRoom;
+    private ArrayList<Item> inventory;
     private final UserInterface UI;
     Player(Room currentRoom, UserInterface UI){
         this.UI = UI;
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
+        inventory = new ArrayList<>();
     }
 
     public Room getCurrentRoom() {
@@ -65,9 +67,25 @@ public class Player {
             if (item.toString().contains(itemToTake)){
                 UI.takeItem(item);
                 currentRoom.removeItem(item);
+                inventory.add(item);
                 return;
             }
         }
-        System.out.printf("No item like that was found in the room");
+        System.out.println("No item like that was found in the room");
+    }
+    public void placeItem(String itemToPlace){
+        for (Item item : inventory){
+            if (item.toString().contains(itemToPlace)){
+                UI.placeItem(item);
+                currentRoom.addItems(item);
+                inventory.remove(item);
+                return;
+            }
+        }
+        System.out.println("No item like that was found in your inventory");
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 }
