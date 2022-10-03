@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Creator {
+public class Map {
     private Room roomOne;
     private Room roomTwo;
     private Room roomThree;
@@ -11,7 +11,7 @@ public class Creator {
     private Room roomEight;
     private Room roomNine;
 
-    public Creator() {
+    public Map() {
         CreateRooms();
         SetConnections();
         LockRooms();

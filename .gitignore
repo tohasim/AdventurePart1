@@ -1,6 +1,7 @@
 
 target/
 docs/drawio files/
+docs/review
 .idea/
 # Default ignored files
 /shelf/

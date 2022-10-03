@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        Adventure controller = new Adventure();
 
         controller.StartAdventure();
     }

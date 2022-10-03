@@ -5,9 +5,8 @@ public class Player {
     private Room roomToUnlock = null;
     private Room currentRoom;
     private ArrayList<Item> inventory;
-    private final UserInterface UI;
-    Player(Room currentRoom, UserInterface UI){
-        this.UI = UI;
+//    private final UserInterface UI;
+    Player(Room currentRoom){
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
         inventory = new ArrayList<>();
@@ -56,33 +55,31 @@ public class Player {
         }
     }
 
-    public void TurnOnLight() {
+    public boolean TurnOnLight() {
         if (!currentRoom.isLightOn()){
-            UI.turnOnLight(currentRoom);
+            currentRoom.turnOnLight();
+            return true;
         }
+        return false;
     }
 
-    public void takeItem(String itemToTake) {
-        for (Item item : currentRoom.getItems()){
-            if (item.toString().contains(itemToTake)){
-                UI.takeItem(item);
-                currentRoom.removeItem(item);
-                inventory.add(item);
-                return;
-            }
+    public boolean takeItem(String itemToTake) {
+        Item item = currentRoom.findItem(itemToTake);
+        if (item != null){
+            inventory.add(item);
+            return true;
         }
-        System.out.println("No item like that was found in the room");
+        return false;
     }
-    public void placeItem(String itemToPlace){
+    public boolean placeItem(String itemToPlace){
         for (Item item : inventory){
             if (item.toString().contains(itemToPlace)){
-                UI.placeItem(item);
                 currentRoom.addItems(item);
                 inventory.remove(item);
-                return;
+                return true;
             }
         }
-        System.out.println("No item like that was found in your inventory");
+        return false;
     }
 
     public ArrayList<Item> getInventory() {

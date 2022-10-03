@@ -99,7 +99,6 @@ public class UserInterface {
     public void turnOnLight(Room currentRoom) {
         System.out.println("The light has been turned on, you can now see the room");
         PrintDescription(currentRoom);
-        currentRoom.turnOnLight();
     }
 
     public void takeItem(Item item) {
@@ -114,5 +113,9 @@ public class UserInterface {
         for (Item item : inventory) {
             System.out.printf(" -%s\n", item);
         }
+    }
+
+    public void printMessage(String stringToPrint) {
+        System.out.println(stringToPrint);
     }
 }

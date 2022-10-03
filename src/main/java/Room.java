@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Room{
+public class Room {
     private Room north;
     private Room south;
     private Room east;
@@ -16,13 +16,13 @@ public class Room{
     public Room(String name) {
         this.name = name;
         triedRooms = new ArrayList<>();
-        lightOn  = true;
+        lightOn = true;
         items = new ArrayList<Item>();
     }
 
     public Room getRoom(String direction) {
         Room room = null;
-        switch (direction.toLowerCase()){
+        switch (direction.toLowerCase()) {
             case "north" -> room = north;
             case "south" -> room = south;
             case "east" -> room = east;
@@ -45,28 +45,28 @@ public class Room{
 
     public void setSouth(Room connectedRoom) {
         this.south = connectedRoom;
-        if (connectedRoom.north == null){
+        if (connectedRoom.north == null) {
             connectedRoom.setNorth(this);
         }
     }
 
     public void setEast(Room connectedRoom) {
         this.east = connectedRoom;
-        if (connectedRoom.west == null){
+        if (connectedRoom.west == null) {
             connectedRoom.setWest(this);
         }
     }
 
     public void setWest(Room connectedRoom) {
         this.west = connectedRoom;
-        if (connectedRoom.east == null){
+        if (connectedRoom.east == null) {
             connectedRoom.setEast(this);
         }
     }
 
     public void setNorth(Room connectedRoom) {
         this.north = connectedRoom;
-        if (connectedRoom.south == null){
+        if (connectedRoom.south == null) {
             connectedRoom.setSouth(this);
         }
     }
@@ -81,19 +81,19 @@ public class Room{
 
     public String getDirection(Room triedRoom) {
         String direction = "";
-        if (north != null && triedRoom.getName().equals(north.getName())){
+        if (north != null && triedRoom.getName().equals(north.getName())) {
             direction = "north";
-        } else if (south != null && triedRoom.getName().equals(south.getName())){
+        } else if (south != null && triedRoom.getName().equals(south.getName())) {
             direction = "south";
-        } else if (east != null && triedRoom.getName().equals(east.getName())){
+        } else if (east != null && triedRoom.getName().equals(east.getName())) {
             direction = "east";
-        } else if (west != null && triedRoom.getName().equals(west.getName())){
+        } else if (west != null && triedRoom.getName().equals(west.getName())) {
             direction = "west";
         }
         return direction;
     }
 
-    public void unlockRoom(Room roomToUnlock){
+    public void unlockRoom(Room roomToUnlock) {
         roomToUnlock.locked = false;
     }
 
@@ -105,11 +105,11 @@ public class Room{
         return lightOn;
     }
 
-    public void turnOnLight(){
+    public void turnOnLight() {
         lightOn = true;
     }
 
-    public void turnOffLight(){
+    public void turnOffLight() {
         lightOn = false;
     }
 
@@ -121,15 +121,25 @@ public class Room{
         return items;
     }
 
-    public void addItems(Item item){
+    public void addItems(Item item) {
         items.add(item);
     }
 
-    public void addItems(ArrayList<Item> items){
+    public void addItems(ArrayList<Item> items) {
         this.items.addAll(items);
     }
 
     public void removeItem(Item item) {
         items.remove(item);
+    }
+
+    public Item findItem(String itemToTake) {
+        for (Item item : getItems()) {
+            if (item.toString().contains(itemToTake)) {
+                removeItem(item);
+                return item;
+            }
+        }
+        return null;
     }
 }
