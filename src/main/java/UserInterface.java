@@ -28,6 +28,8 @@ public class UserInterface {
                 "-Take {item}: take the item specified in {item}\n" +
                 "-Place {item}: place the item specified in {item} from your inventory to the room\n" +
                 "-Inventory: show inventory\n" +
+                "-Turn on light: light a dark room \n" +
+                "-Unlock: unlock a locked door\n" +
                 "-Help: get this message \n" +
                 "-Exit: exit the game");
     }
