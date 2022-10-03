@@ -5,7 +5,6 @@ public class Player {
     private Room roomToUnlock = null;
     private Room currentRoom;
     private ArrayList<Item> inventory;
-//    private final UserInterface UI;
     Player(Room currentRoom){
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
@@ -18,40 +17,21 @@ public class Player {
 
     public void GoDirection(String direction) {
         Room roomToVisit = currentRoom.getRoom(direction);
-        if (roomToVisit != null){
-            if (roomToVisit.isLocked()){
-                System.out.println("Room is locked");
-                roomToUnlock = roomToVisit;
-                awaitingUnlock = true;
-            }else {
-                if (roomToVisit.isLightOn()){
-                    if (roomToVisit.isVisited()) {
-                        UI.enterRoom(roomToVisit, direction);
-                    } else {
-                        UI.enterNewRoom(roomToVisit, direction);
-                        roomToVisit.setVisited(true);
-                    }
-                }else {
-                    System.out.println("The room you entered is dark, go back, or turn on the light");
-                }
-                if (!roomToVisit.triedRooms.contains(currentRoom))
-                    roomToVisit.triedRooms.add(currentRoom);
-                currentRoom = currentRoom.getRoom(direction);
-                awaitingUnlock = false;
-            }
-        }else{
-            System.out.println("You cannot go this way");
-        }
+        if (!roomToVisit.triedRooms.contains(currentRoom))
+            roomToVisit.triedRooms.add(currentRoom);
+        currentRoom = currentRoom.getRoom(direction);
+        awaitingUnlock = false;
     }
 
-    public void Unlock() {
+    public boolean Unlock() {
         if (awaitingUnlock){
             currentRoom.unlockRoom(roomToUnlock);
             GoDirection(currentRoom.getDirection(roomToUnlock));
             awaitingUnlock = false;
             roomToUnlock = null;
+            return true;
         }else{
-            System.out.println("No locked rooms nearby");
+            return false;
         }
     }
 
@@ -84,5 +64,13 @@ public class Player {
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    public void setRoomToUnlock(Room roomToUnlock) {
+        this.roomToUnlock = roomToUnlock;
+    }
+
+    public void setAwaitingUnlock(boolean b) {
+        awaitingUnlock = b;
     }
 }

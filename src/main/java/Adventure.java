@@ -11,10 +11,9 @@ public class Adventure {
         UI.Welcome();
         UI.ExplainGame();
         UI.Help();
-        MainLoop(UI, player, this);
+        MainLoop();
     }
-    void MainLoop(UserInterface UI, Player player, Adventure controller) {
-        this.UI = UI;
+    void MainLoop() {
         shouldRun = true;
         while(shouldRun){
             String userChoice = UI.PromptUserChoice();
@@ -34,19 +33,45 @@ public class Adventure {
                 case "look" -> UI.PrintDescription(player.getCurrentRoom());
                 case "help" -> UI.Help();
                 case "exit" -> EndGame();
-                case "unlock" -> player.Unlock();
+                case "unlock" -> UnlockNearby();
                 case "turn on light" -> TurnOnLight();
                 case "take" ->  takeItem(interactItem);
                 case "place" ->  placeItem(interactItem);
                 case "inventory" -> UI.printInventory(player.getInventory());
-                default -> System.out.println("Unknown command, type \"help\" for a list of commands");
+                default -> UI.printMessage("Unknown command, type \"help\" for a list of commands");
             }
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
                 GameOver();
         }
     }
 
+    private void UnlockNearby() {
+        if(!player.Unlock()) UI.printMessage("No locked rooms nearby");
+    }
+
     private void checkAndGoDirection(String direction) {
+        Room roomToVisit = player.getCurrentRoom().getRoom(direction);
+        if (roomToVisit != null){
+            if (roomToVisit.isLocked()){
+                UI.printMessage("Room is locked");
+                player.setRoomToUnlock(roomToVisit);
+                player.setAwaitingUnlock(true);
+            }else {
+                if (roomToVisit.isLightOn()){
+                    if (roomToVisit.isVisited()) {
+                        UI.enterRoom(roomToVisit, direction);
+                    } else {
+                        UI.enterNewRoom(roomToVisit, direction);
+                        roomToVisit.setVisited(true);
+                    }
+                }else {
+                    UI.printMessage("The room you entered is dark, go back, or turn on the light");
+                }
+                player.GoDirection(direction);
+            }
+        }else{
+            UI.printMessage("You cannot go this way");
+        }
     }
 
     private void TurnOnLight() {
