@@ -1,0 +1,10 @@
+public enum ReturnMessage {
+    UNKNOWN_COMMAND,
+    NO_LOCKED_ROOMS,
+    ROOM_LOCKED,
+    ROOM_DARK,
+    NO_ROOM_THIS_DIRECTION,
+    NO_ITEM_INVENTORY,
+    NO_ITEM_ROOM,
+    OK;
+}

@@ -115,7 +115,16 @@ public class UserInterface {
         }
     }
 
-    public void printMessage(String stringToPrint) {
-        System.out.println(stringToPrint);
+    public void printMessage(ReturnMessage returnMessage) {
+        switch (returnMessage){
+            case OK -> System.out.println("Ok");
+                    case UNKNOWN_COMMAND -> System.out.println("Unknown command, type \"help\" for a list of commands");
+                    case NO_LOCKED_ROOMS -> System.out.println("No locked rooms nearby");
+                    case ROOM_LOCKED -> System.out.println("Room is locked");
+                    case ROOM_DARK -> System.out.println("The room you entered is dark, go back, or turn on the light");
+                    case NO_ROOM_THIS_DIRECTION -> System.out.println("You cannot go this way");
+                    case NO_ITEM_INVENTORY -> System.out.println("No item like that was found in your inventory");
+                    case NO_ITEM_ROOM -> System.out.println("No item like that was found in the room");
+        }
     }
 }

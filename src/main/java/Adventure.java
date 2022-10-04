@@ -14,6 +14,7 @@ public class Adventure {
         MainLoop();
     }
     void MainLoop() {
+        ReturnMessage returnMessage = ReturnMessage.OK;
         shouldRun = true;
         while(shouldRun){
             String userChoice = UI.PromptUserChoice();
@@ -26,10 +27,18 @@ public class Adventure {
                 userChoice = "place";
             }
             switch (userChoice.toLowerCase()){
-                case "go north", "north", "n" -> checkAndGoDirection("north");
-                case "go south", "south", "s" -> player.GoDirection("south");
-                case "go east", "east", "e" -> player.GoDirection("east");
-                case "go west", "west", "w" -> player.GoDirection("west");
+                case "go north", "north", "n" -> {
+                    returnMessage = checkAndGoDirection("north");
+                }
+                case "go south", "south", "s" -> {
+                    returnMessage = checkAndGoDirection("south");
+                }
+                case "go east", "east", "e" -> {
+                    returnMessage = checkAndGoDirection("east");
+                }
+                case "go west", "west", "w" -> {
+                    returnMessage = checkAndGoDirection("west");
+                }
                 case "look" -> UI.PrintDescription(player.getCurrentRoom());
                 case "help" -> UI.Help();
                 case "exit" -> EndGame();
@@ -38,22 +47,28 @@ public class Adventure {
                 case "take" ->  takeItem(interactItem);
                 case "place" ->  placeItem(interactItem);
                 case "inventory" -> UI.printInventory(player.getInventory());
-                default -> UI.printMessage("Unknown command, type \"help\" for a list of commands");
+                default -> {
+                    returnMessage = ReturnMessage.UNKNOWN_COMMAND;
+                }
             }
+            UI.printMessage(returnMessage);
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
                 GameOver();
         }
+         UI.printMessage(returnMessage);
     }
 
-    private void UnlockNearby() {
-        if(!player.Unlock()) UI.printMessage("No locked rooms nearby");
+    private ReturnMessage UnlockNearby() {
+        if(!player.Unlock()) return ReturnMessage.NO_LOCKED_ROOMS;
+        return ReturnMessage.OK;
     }
 
-    private void checkAndGoDirection(String direction) {
+    private ReturnMessage checkAndGoDirection(String direction) {
+        ReturnMessage returnMessage = ReturnMessage.OK;
         Room roomToVisit = player.getCurrentRoom().getRoom(direction);
         if (roomToVisit != null){
             if (roomToVisit.isLocked()){
-                UI.printMessage("Room is locked");
+                returnMessage = ReturnMessage.ROOM_LOCKED;
                 player.setRoomToUnlock(roomToVisit);
                 player.setAwaitingUnlock(true);
             }else {
@@ -65,13 +80,14 @@ public class Adventure {
                         roomToVisit.setVisited(true);
                     }
                 }else {
-                    UI.printMessage("The room you entered is dark, go back, or turn on the light");
+                    returnMessage = ReturnMessage.ROOM_DARK;
                 }
                 player.GoDirection(direction);
             }
         }else{
-            UI.printMessage("You cannot go this way");
+            returnMessage = ReturnMessage.NO_ROOM_THIS_DIRECTION;
         }
+        return returnMessage;
     }
 
     private void TurnOnLight() {
@@ -81,15 +97,17 @@ public class Adventure {
         }
     }
 
-    private void placeItem(String interactItem) {
+    private ReturnMessage placeItem(String interactItem) {
         if(!player.placeItem(interactItem)){
-            UI.printMessage("No item like that was found in your inventory");
+            return  ReturnMessage.NO_ITEM_INVENTORY;
         }
+        return ReturnMessage.OK;
     }
 
-    private void takeItem(String interactItem) {
+    private ReturnMessage takeItem(String interactItem) {
         if (!player.takeItem(interactItem))
-            UI.printMessage("No item like that was found in the room");
+            return ReturnMessage.NO_ITEM_ROOM;
+        return ReturnMessage.OK;
     }
 
     private void GameOver() {
