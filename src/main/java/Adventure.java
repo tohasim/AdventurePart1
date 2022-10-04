@@ -14,38 +14,44 @@ public class Adventure {
         MainLoop();
     }
     void MainLoop() {
-        ReturnMessage returnMessage = ReturnMessage.OK;
         shouldRun = true;
-        while(shouldRun){
+        String directionToGo = "";
+        ReturnMessage returnMessage = null;
+        while (shouldRun) {
+            returnMessage = ReturnMessage.OK;
             String userChoice = UI.PromptUserChoice();
             String interactItem = null;
-            if (userChoice.contains("take")){
+            if (userChoice.contains("take")) {
                 interactItem = userChoice.substring(5);
                 userChoice = "take";
             } else if (userChoice.contains("place")) {
                 interactItem = userChoice.substring(6);
                 userChoice = "place";
             }
-            switch (userChoice.toLowerCase()){
+            switch (userChoice.toLowerCase()) {
                 case "go north", "north", "n" -> {
-                    returnMessage = checkAndGoDirection("north");
+                    directionToGo = "north";
+                    returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "go south", "south", "s" -> {
-                    returnMessage = checkAndGoDirection("south");
+                    directionToGo = "south";
+                    returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "go east", "east", "e" -> {
-                    returnMessage = checkAndGoDirection("east");
+                    directionToGo = "east";
+                    returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "go west", "west", "w" -> {
-                    returnMessage = checkAndGoDirection("west");
+                    directionToGo = "west";
+                    returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "look" -> UI.PrintDescription(player.getCurrentRoom());
                 case "help" -> UI.Help();
                 case "exit" -> EndGame();
-                case "unlock" -> returnMessage = UnlockNearby();
+                case "unlock" -> returnMessage = UnlockNearby(directionToGo);
                 case "turn on light" -> TurnOnLight();
-                case "take" ->  takeItem(interactItem);
-                case "place" ->  placeItem(interactItem);
+                case "take" -> takeItem(interactItem);
+                case "place" -> placeItem(interactItem);
                 case "inventory" -> UI.printInventory(player.getInventory());
                 default -> {
                     returnMessage = ReturnMessage.UNKNOWN_COMMAND;
@@ -55,11 +61,12 @@ public class Adventure {
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
                 GameOver();
         }
-         UI.printMessage(returnMessage);
+        UI.printMessage(returnMessage);
     }
 
-    private ReturnMessage UnlockNearby() {
+    private ReturnMessage UnlockNearby(String directionToGo) {
         if(!player.Unlock()) return ReturnMessage.NO_LOCKED_ROOMS;
+        checkAndGoDirection(directionToGo);
         return ReturnMessage.OK;
     }
 
@@ -101,12 +108,14 @@ public class Adventure {
         if(!player.placeItem(interactItem)){
             return  ReturnMessage.NO_ITEM_INVENTORY;
         }
+        UI.takeItem(player.getCurrentRoom().findItem(interactItem));
         return ReturnMessage.OK;
     }
 
     private ReturnMessage takeItem(String interactItem) {
         if (!player.takeItem(interactItem))
             return ReturnMessage.NO_ITEM_ROOM;
+        UI.takeItem(player.findInventoryItem(interactItem));
         return ReturnMessage.OK;
     }
 

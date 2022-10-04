@@ -26,7 +26,6 @@ public class Player {
     public boolean Unlock() {
         if (awaitingUnlock){
             currentRoom.unlockRoom(roomToUnlock);
-            GoDirection(currentRoom.getDirection(roomToUnlock));
             awaitingUnlock = false;
             roomToUnlock = null;
             return true;
@@ -64,6 +63,14 @@ public class Player {
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    public Item findInventoryItem(String itemToFind){
+        for (Item item : inventory) {
+            if (item.toString().contains(itemToFind))
+                return item;
+        }
+        return null;
     }
 
     public void setRoomToUnlock(Room roomToUnlock) {
