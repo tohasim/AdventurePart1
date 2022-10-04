@@ -42,7 +42,7 @@ public class Adventure {
                 case "look" -> UI.PrintDescription(player.getCurrentRoom());
                 case "help" -> UI.Help();
                 case "exit" -> EndGame();
-                case "unlock" -> UnlockNearby();
+                case "unlock" -> returnMessage = UnlockNearby();
                 case "turn on light" -> TurnOnLight();
                 case "take" ->  takeItem(interactItem);
                 case "place" ->  placeItem(interactItem);
