@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Adventure {
     private boolean shouldRun;
     private UserInterface UI;
@@ -19,29 +21,48 @@ public class Adventure {
         ReturnMessage returnMessage = null;
         while (shouldRun) {
             returnMessage = ReturnMessage.OK;
-            String userChoice = UI.PromptUserChoice();
-            String interactItem = null;
-            if (userChoice.contains("take")) {
+            ArrayList<String> userChoice = UI.PromptUserChoice();
+            /*String interactItem = null;
+            if (userChoice[0].contains("take")) {
                 interactItem = userChoice.substring(5);
                 userChoice = "take";
             } else if (userChoice.contains("place")) {
                 interactItem = userChoice.substring(6);
                 userChoice = "place";
-            }
-            switch (userChoice.toLowerCase()) {
-                case "go north", "north", "n" -> {
-                    directionToGo = "north";
+            }*/
+            switch (userChoice.get(0)) {
+                case "go" -> {
+                    switch (userChoice.get(1)) {
+                        case "north", "n" -> {directionToGo = "north";
+                            returnMessage = checkAndGoDirection(directionToGo);
+                        }
+                        case "south", "s" -> {
+                            directionToGo = "south";
+                            returnMessage = checkAndGoDirection(directionToGo);
+                        }
+                        case "east", "e" -> {
+                            directionToGo = "east";
+                            returnMessage = checkAndGoDirection(directionToGo);
+                        }
+                        case "west", "w" -> {
+                            directionToGo = "west";
+                            returnMessage = checkAndGoDirection(directionToGo);
+                        }
+                        default -> UI.printMessage(ReturnMessage.NOT_A_DIRECTION);
+                    }
+                }
+                case "north", "n" -> {directionToGo = "north";
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
-                case "go south", "south", "s" -> {
+                case "south", "s" -> {
                     directionToGo = "south";
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
-                case "go east", "east", "e" -> {
+                case "east", "e" -> {
                     directionToGo = "east";
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
-                case "go west", "west", "w" -> {
+                case "west", "w" -> {
                     directionToGo = "west";
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
@@ -49,13 +70,29 @@ public class Adventure {
                 case "help" -> UI.Help();
                 case "exit" -> EndGame();
                 case "unlock" -> returnMessage = UnlockNearby(directionToGo);
-                case "turn on light" -> TurnOnLight();
-                case "take" -> takeItem(interactItem);
-                case "place" -> placeItem(interactItem);
-                case "inventory" -> UI.printInventory(player.getInventory());
-                default -> {
-                    returnMessage = ReturnMessage.UNKNOWN_COMMAND;
+                case "turn"-> {
+                    if (String.join(" " ,userChoice).equals("turn on light"))
+                        TurnOnLight();
+                    else returnMessage = ReturnMessage.UNKNOWN_COMMAND;
                 }
+                case "take" -> {
+                    userChoice.remove(0);
+                    String itemToTake = String.join(" ", userChoice);
+                    returnMessage = takeItem(itemToTake);
+                }
+                case "place" -> {
+                    userChoice.remove(0);
+                    String itemToTake = String.join(" ", userChoice);
+                    returnMessage = placeItem(itemToTake);
+                }
+                case "eat" ->  {
+                    userChoice.remove(0);
+                    String itemToTake = String.join(" ", userChoice);
+                    returnMessage = eatItem(itemToTake);
+                }
+                case "inventory" -> UI.printInventory(player.getInventory());
+                case "health" -> UI.printHealth(player.getHp());
+                default -> returnMessage = ReturnMessage.UNKNOWN_COMMAND;
             }
             UI.printMessage(returnMessage);
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
@@ -80,6 +117,7 @@ public class Adventure {
                 player.setAwaitingUnlock(true);
             }else {
                 if (roomToVisit.isLightOn()){
+                    //TODO: At the moment it is possible to ignore this and pass through dark room
                     if (roomToVisit.isVisited()) {
                         UI.enterRoom(roomToVisit, direction);
                     } else {
@@ -100,24 +138,31 @@ public class Adventure {
     private void TurnOnLight() {
         if (player.TurnOnLight()){
             UI.turnOnLight(player.getCurrentRoom());
-
         }
     }
 
     private ReturnMessage placeItem(String interactItem) {
-        if(!player.placeItem(interactItem)){
+        if(!player.placeItem(interactItem) || interactItem == ""){
             return  ReturnMessage.NO_ITEM_INVENTORY;
         }
-        UI.takeItem(player.getCurrentRoom().findItem(interactItem));
+        UI.placeItem(player.getCurrentRoom().findItem(interactItem));
         return ReturnMessage.OK;
     }
 
     private ReturnMessage takeItem(String interactItem) {
-        if (!player.takeItem(interactItem))
+        if (!player.takeItem(interactItem) || interactItem == "")
             return ReturnMessage.NO_ITEM_ROOM;
         UI.takeItem(player.findInventoryItem(interactItem));
         return ReturnMessage.OK;
     }
+    private ReturnMessage eatItem(String itemToTake) {
+        ReturnMessage returnMessage = player.eatItem(itemToTake);
+        if (returnMessage == ReturnMessage.OK){
+            UI.eatItem(itemToTake);
+        }
+        return returnMessage;
+    }
+
 
     private void GameOver() {
         if (UI.TryAgain()){

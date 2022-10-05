@@ -5,10 +5,15 @@ public class Player {
     private Room roomToUnlock = null;
     private Room currentRoom;
     private ArrayList<Item> inventory;
+    private int hp;
+    private static int HP_MAX = 100;
+    private boolean dead;
+
     Player(Room currentRoom){
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
         inventory = new ArrayList<>();
+        hp = 10;
     }
 
     public Room getCurrentRoom() {
@@ -46,6 +51,7 @@ public class Player {
         Item item = currentRoom.findItem(itemToTake);
         if (item != null){
             inventory.add(item);
+            currentRoom.removeItem(item);
             return true;
         }
         return false;
@@ -79,5 +85,36 @@ public class Player {
 
     public void setAwaitingUnlock(boolean b) {
         awaitingUnlock = b;
+    }
+
+    public void heal(int healAmount){
+        if (hp + healAmount < HP_MAX )
+            hp += healAmount;
+        else hp = HP_MAX;
+    }
+    public void damage(int damageAmount){
+        if (hp - damageAmount <= 0)
+            dead = true;
+        hp -= damageAmount;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public ReturnMessage eatItem(String itemToTake) {
+        Item itemToEat = findInventoryItem(itemToTake);
+        if (itemToEat == null)
+            return ReturnMessage.NO_ITEM_INVENTORY;
+        if (itemToEat instanceof FoodItem){
+            inventory.remove(itemToEat);
+            heal(((FoodItem) itemToEat).getHpAdd());
+            return ReturnMessage.OK;
+        }
+        return ReturnMessage.ITEM_NOT_FOOD;
+    }
+
+    public int getHp() {
+        return hp;
     }
 }

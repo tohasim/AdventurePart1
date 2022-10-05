@@ -136,7 +136,6 @@ public class Room {
     public Item findItem(String itemToTake) {
         for (Item item : getItems()) {
             if (item.toString().contains(itemToTake)) {
-                removeItem(item);
                 return item;
             }
         }

@@ -27,6 +27,7 @@ public class UserInterface {
                 "    west\n" +
                 "-Take {item}: take the item specified in {item}\n" +
                 "-Place {item}: place the item specified in {item} from your inventory to the room\n" +
+                "-Eat {food item}: eat a piece of food from your inventory\n" +
                 "-Inventory: show inventory\n" +
                 "-Turn on light: light a dark room \n" +
                 "-Unlock: unlock a locked door\n" +
@@ -34,9 +35,14 @@ public class UserInterface {
                 "-Exit: exit the game");
     }
 
-    public String PromptUserChoice() {
+    public ArrayList<String> PromptUserChoice() {
         System.out.println("Please enter a command: ");
-        return keyboard.nextLine();
+        String[] input = keyboard.nextLine().toLowerCase().trim().split(" ");
+        ArrayList<String> returnList = new ArrayList<>();
+        for (String word : input) {
+            returnList.add(word);
+        }
+        return returnList;
     }
 
     public void PrintDescription(Room currentRoom) {
@@ -75,8 +81,8 @@ public class UserInterface {
         boolean tryAgain = false;
         while(!answered){
             System.out.println("Want to play again? (Yes/No)");
-            String answer = PromptUserChoice();
-            switch (answer.toLowerCase()){
+            ArrayList<String> answer = PromptUserChoice();
+            switch (answer.get(0).toLowerCase()){
                 case "yes" -> {
                     tryAgain = true;
                     answered = true;
@@ -125,6 +131,16 @@ public class UserInterface {
             case NO_ITEM_INVENTORY -> System.out.println("No item like that was found in your inventory");
             case NO_ITEM_ROOM -> System.out.println("No item like that was found in the room");
             case OK -> System.out.println("");
+            case ITEM_NOT_FOOD -> System.out.println("This item is not a food item");
+            case NOT_A_DIRECTION -> System.out.println("Input was not a direction, please choose either north, south, east or west");
         }
+    }
+
+    public void eatItem(String itemToTake) {
+        System.out.printf("You ate %s\n", itemToTake);
+    }
+
+    public void printHealth(int hp) {
+        System.out.printf("Your health is at %d\n", hp);
     }
 }

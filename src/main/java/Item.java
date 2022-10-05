@@ -10,12 +10,6 @@ public class Item {
         this.pronoun = pronoun;
         this.name = name;
     }
-    public String getName() {
-        return name;
-    }
-    public String getPronoun() {
-        return pronoun;
-    }
 
     @Override
     public String toString() {

@@ -6,5 +6,6 @@ public enum ReturnMessage {
     NO_ROOM_THIS_DIRECTION,
     NO_ITEM_INVENTORY,
     NO_ITEM_ROOM,
-    OK;
+    OK,
+    NOT_A_DIRECTION, ITEM_NOT_FOOD;
 }

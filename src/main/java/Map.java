@@ -29,14 +29,17 @@ public class Map {
 
         ArrayList<Item> roomThreeItems = new ArrayList<>();
         roomThreeItems.add(new Item("a", "broken lamp"));
-        roomThreeItems.add(new Item("a", "sword"));
+        roomThreeItems.add(new FoodItem("an", "apple", 5));
         roomThree.addItems(roomThreeItems);
 
         ArrayList<Item> roomFourItems = new ArrayList<>();
         roomFourItems.add(new Item("a", "lighter"));
         roomFourItems.add(new Item("glasses"));
-        roomFourItems.add(new Item("sneakers"));
+        roomFourItems.add(new FoodItem("Bananas", 20));
         roomFour.addItems(roomFourItems);
+
+        Item roomSixItems = new FoodItem("a", "protein bar", 10);
+        roomSix.addItems(roomSixItems);
     }
 
     private void TurnOffLights() {
