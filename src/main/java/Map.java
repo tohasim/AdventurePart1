@@ -20,8 +20,11 @@ public class Map {
     }
 
     private void FillRoomsWithItems() {
-        Item roomOneItem = new Item("a", "feather");
-        roomOne.addItems(roomOneItem);
+        ArrayList<Item> roomOneItems = new ArrayList<>();
+        roomOneItems.add(new Item("a", "feather"));
+        roomOneItems.add(new MeleeWeapon("a", "sword"));
+        roomOneItems.add(new RangedWeapon("a", "bow", 10));
+        roomOne.addItems(roomOneItems);
 
         ArrayList<Item> roomTwoItems = new ArrayList<>();
         roomTwoItems.add(new Item("a", "broken key"));

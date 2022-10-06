@@ -131,8 +131,12 @@ public class UserInterface {
             case NO_ITEM_INVENTORY -> System.out.println("No item like that was found in your inventory");
             case NO_ITEM_ROOM -> System.out.println("No item like that was found in the room");
             case OK -> System.out.println("");
-            case ITEM_NOT_FOOD -> System.out.println("This item is not a food item");
+            case ITEM_NOT_FOOD -> System.out.println("This item cannot be eaten");
             case NOT_A_DIRECTION -> System.out.println("Input was not a direction, please choose either north, south, east or west");
+            case ITEM_NOT_WEAPON -> System.out.println("This item is not a weapon");
+            case ATTACK_UNSUCCESSFUL -> System.out.println("Attack unsuccessful, do you have a weapon equipped? Or maybe it's out of ammo?");
+            case WEAPON_OUT_OF_AMMO -> System.out.println("Out of ammo!");
+            case NO_WEAPON_EQUIPPED -> System.out.println("You do not have a weapon equipped");
         }
     }
 
@@ -142,5 +146,13 @@ public class UserInterface {
 
     public void printHealth(int hp) {
         System.out.printf("Your health is at %d\n", hp);
+    }
+
+    public void EquipItem(String itemToEquip) {
+        System.out.printf("%s equipped!\n", itemToEquip);
+    }
+
+    public void attack() {
+        System.out.println("You attacked the dangerous room");
     }
 }

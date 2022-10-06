@@ -92,6 +92,12 @@ public class Adventure {
                 }
                 case "inventory" -> UI.printInventory(player.getInventory());
                 case "health" -> UI.printHealth(player.getHp());
+                case "equip" -> {
+                    userChoice.remove(0);
+                    String itemToEquip = String.join(" ", userChoice);
+                    returnMessage = equipItem(itemToEquip);
+                }
+                case "attack" -> returnMessage = attack();
                 default -> returnMessage = ReturnMessage.UNKNOWN_COMMAND;
             }
             UI.printMessage(returnMessage);
@@ -99,6 +105,22 @@ public class Adventure {
                 GameOver();
         }
         UI.printMessage(returnMessage);
+    }
+
+    private ReturnMessage attack() {
+        ReturnMessage returnMessage = player.attack();
+        if(returnMessage == ReturnMessage.OK){
+            UI.attack();
+        }
+        return returnMessage;
+    }
+
+    private ReturnMessage equipItem(String itemToEquip) {
+        ReturnMessage returnMessage = player.EquipItem(itemToEquip);
+        if (returnMessage == ReturnMessage.OK){
+            UI.EquipItem(itemToEquip);
+        }
+        return returnMessage;
     }
 
     private ReturnMessage UnlockNearby(String directionToGo) {

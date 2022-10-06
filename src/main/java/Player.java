@@ -8,6 +8,7 @@ public class Player {
     private int hp;
     private static int HP_MAX = 100;
     private boolean dead;
+    private Weapon equippedWeapon;
 
     Player(Room currentRoom){
         this.currentRoom = currentRoom;
@@ -116,5 +117,24 @@ public class Player {
 
     public int getHp() {
         return hp;
+    }
+
+    public ReturnMessage EquipItem(String itemToEquip) {
+        Item item = findInventoryItem(itemToEquip);
+        if (item == null)
+            return ReturnMessage.NO_ITEM_INVENTORY;
+        if (item instanceof Weapon){
+            equippedWeapon = (Weapon) item;
+            return ReturnMessage.OK;
+        }
+        return ReturnMessage.ITEM_NOT_WEAPON;
+    }
+
+    public ReturnMessage attack() {
+        if (equippedWeapon == null)
+            return ReturnMessage.NO_WEAPON_EQUIPPED;
+        if (!equippedWeapon.canUse())
+            return ReturnMessage.WEAPON_OUT_OF_AMMO;
+        return ReturnMessage.OK;
     }
 }
