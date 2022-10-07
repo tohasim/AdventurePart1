@@ -41,8 +41,9 @@ public class Player {
     }
 
     public boolean TurnOnLight() {
-        if (!currentRoom.isLightOn()){
-            currentRoom.turnOnLight();
+        if (!roomToUnlock.isLightOn()){
+            roomToUnlock.turnOnLight();
+            GoDirection(currentRoom.getDirection(roomToUnlock));
             return true;
         }
         return false;

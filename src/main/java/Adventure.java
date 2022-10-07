@@ -139,17 +139,17 @@ public class Adventure {
                 player.setAwaitingUnlock(true);
             }else {
                 if (roomToVisit.isLightOn()){
-                    //TODO: At the moment it is possible to ignore this and pass through dark room
                     if (roomToVisit.isVisited()) {
                         UI.enterRoom(roomToVisit, direction);
                     } else {
                         UI.enterNewRoom(roomToVisit, direction);
                         roomToVisit.setVisited(true);
                     }
+                    player.GoDirection(direction);
                 }else {
                     returnMessage = ReturnMessage.ROOM_DARK;
+                    player.setRoomToUnlock(roomToVisit);
                 }
-                player.GoDirection(direction);
             }
         }else{
             returnMessage = ReturnMessage.NO_ROOM_THIS_DIRECTION;
