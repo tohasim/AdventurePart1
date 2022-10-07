@@ -1,3 +1,6 @@
+import Enums.Direction;
+import Enums.ReturnMessage;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -94,11 +97,11 @@ public class UserInterface {
         return tryAgain;
     }
 
-    public void enterNewRoom(Room enteredRoom, String direction) {
+    public void enterNewRoom(Room enteredRoom, Direction direction) {
         System.out.printf("You went %s, and entered a new room\n", direction);
         PrintDescription(enteredRoom);
     }
-    public void enterRoom(Room enteredRoom, String direction){
+    public void enterRoom(Room enteredRoom, Direction direction){
         System.out.printf("You went %s, and entered %s \n", direction, enteredRoom.getName());
     }
 

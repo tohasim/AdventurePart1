@@ -1,3 +1,6 @@
+import Enums.Direction;
+import Enums.ReturnMessage;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -21,7 +24,7 @@ public class Player {
         return currentRoom;
     }
 
-    public void GoDirection(String direction) {
+    public void GoDirection(Direction direction) {
         Room roomToVisit = currentRoom.getRoom(direction);
         if (!roomToVisit.triedRooms.contains(currentRoom))
             roomToVisit.triedRooms.add(currentRoom);

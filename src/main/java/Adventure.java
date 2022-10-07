@@ -1,3 +1,6 @@
+import Enums.Direction;
+import Enums.ReturnMessage;
+
 import java.util.ArrayList;
 
 public class Adventure {
@@ -17,53 +20,45 @@ public class Adventure {
     }
     void MainLoop() {
         shouldRun = true;
-        String directionToGo = "";
+        Direction directionToGo = null;
         ReturnMessage returnMessage = null;
         while (shouldRun) {
             returnMessage = ReturnMessage.OK;
             ArrayList<String> userChoice = UI.PromptUserChoice();
-            /*String interactItem = null;
-            if (userChoice[0].contains("take")) {
-                interactItem = userChoice.substring(5);
-                userChoice = "take";
-            } else if (userChoice.contains("place")) {
-                interactItem = userChoice.substring(6);
-                userChoice = "place";
-            }*/
             switch (userChoice.get(0)) {
                 case "go" -> {
                     switch (userChoice.get(1)) {
-                        case "north", "n" -> {directionToGo = "north";
+                        case "north", "n" -> {directionToGo = Direction.NORTH;
                             returnMessage = checkAndGoDirection(directionToGo);
                         }
                         case "south", "s" -> {
-                            directionToGo = "south";
+                            directionToGo = Direction.SOUTH;
                             returnMessage = checkAndGoDirection(directionToGo);
                         }
                         case "east", "e" -> {
-                            directionToGo = "east";
+                            directionToGo = Direction.EAST;
                             returnMessage = checkAndGoDirection(directionToGo);
                         }
                         case "west", "w" -> {
-                            directionToGo = "west";
+                            directionToGo = Direction.WEST;
                             returnMessage = checkAndGoDirection(directionToGo);
                         }
                         default -> UI.printMessage(ReturnMessage.NOT_A_DIRECTION);
                     }
                 }
-                case "north", "n" -> {directionToGo = "north";
+                case "north", "n" -> {directionToGo = Direction.NORTH;
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "south", "s" -> {
-                    directionToGo = "south";
+                    directionToGo = Direction.SOUTH;
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "east", "e" -> {
-                    directionToGo = "east";
+                    directionToGo = Direction.EAST;
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "west", "w" -> {
-                    directionToGo = "west";
+                    directionToGo = Direction.WEST;
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
                 case "look" -> UI.PrintDescription(player.getCurrentRoom());
@@ -123,13 +118,13 @@ public class Adventure {
         return returnMessage;
     }
 
-    private ReturnMessage UnlockNearby(String directionToGo) {
+    private ReturnMessage UnlockNearby(Direction directionToGo) {
         if(!player.Unlock()) return ReturnMessage.NO_LOCKED_ROOMS;
         checkAndGoDirection(directionToGo);
         return ReturnMessage.OK;
     }
 
-    private ReturnMessage checkAndGoDirection(String direction) {
+    private ReturnMessage checkAndGoDirection(Direction direction) {
         ReturnMessage returnMessage = ReturnMessage.OK;
         Room roomToVisit = player.getCurrentRoom().getRoom(direction);
         if (roomToVisit != null){

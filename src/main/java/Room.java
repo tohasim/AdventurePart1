@@ -1,3 +1,5 @@
+import Enums.Direction;
+
 import java.util.ArrayList;
 
 public class Room {
@@ -9,24 +11,21 @@ public class Room {
     private String description;
     private boolean visited;
     private boolean locked;
-    private boolean lightOn;
-    private ArrayList<Item> items;
-    public ArrayList<Room> triedRooms;
+    private boolean lightOn = true;
+    private ArrayList<Item> items = new ArrayList<Item>();
+    public ArrayList<Room> triedRooms = new ArrayList<>();
 
     public Room(String name) {
         this.name = name;
-        triedRooms = new ArrayList<>();
-        lightOn = true;
-        items = new ArrayList<Item>();
     }
 
-    public Room getRoom(String direction) {
+    public Room getRoom(Direction direction) {
         Room room = null;
-        switch (direction.toLowerCase()) {
-            case "north" -> room = north;
-            case "south" -> room = south;
-            case "east" -> room = east;
-            case "west" -> room = west;
+        switch (direction) {
+            case NORTH -> room = north;
+            case SOUTH -> room = south;
+            case EAST -> room = east;
+            case WEST -> room = west;
         }
         return room;
     }
@@ -79,16 +78,16 @@ public class Room {
         this.visited = visited;
     }
 
-    public String getDirection(Room triedRoom) {
-        String direction = "";
+    public Direction getDirection(Room triedRoom) {
+        Direction direction = null;
         if (north != null && triedRoom.getName().equals(north.getName())) {
-            direction = "north";
+            direction = Direction.NORTH;
         } else if (south != null && triedRoom.getName().equals(south.getName())) {
-            direction = "south";
+            direction = Direction.SOUTH;
         } else if (east != null && triedRoom.getName().equals(east.getName())) {
-            direction = "east";
+            direction = Direction.EAST;
         } else if (west != null && triedRoom.getName().equals(west.getName())) {
-            direction = "west";
+            direction = Direction.WEST;
         }
         return direction;
     }
