@@ -111,9 +111,9 @@ public class Player {
         Item itemToEat = findInventoryItem(itemToTake);
         if (itemToEat == null)
             return ReturnMessage.NO_ITEM_INVENTORY;
-        if (itemToEat instanceof FoodItem){
-            inventory.remove(itemToEat);
-            heal(((FoodItem) itemToEat).getHpAdd());
+        if (itemToEat instanceof FoodItem food){
+            inventory.remove(food);
+            heal(food.getHpAdd());
             return ReturnMessage.OK;
         }
         return ReturnMessage.ITEM_NOT_FOOD;
@@ -127,8 +127,8 @@ public class Player {
         Item item = findInventoryItem(itemToEquip);
         if (item == null)
             return ReturnMessage.NO_ITEM_INVENTORY;
-        if (item instanceof Weapon){
-            equippedWeapon = (Weapon) item;
+        if (item instanceof Weapon weapon){
+            equippedWeapon = weapon;
             return ReturnMessage.OK;
         }
         return ReturnMessage.ITEM_NOT_WEAPON;
