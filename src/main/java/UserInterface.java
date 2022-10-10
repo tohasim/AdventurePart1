@@ -68,7 +68,7 @@ public class UserInterface {
             String availableDirections = "You have found doors to the ";
             for (Room triedRoom : currentRoom.triedRooms) {
                 if (triedRoom != null)
-                    availableDirections += currentRoom.getDirection(triedRoom) + " and ";
+                    availableDirections += currentRoom.getDirection(triedRoom).toString().toLowerCase() + " and ";
             }
             availableDirections = availableDirections.substring(0, availableDirections.length() - 5);
             System.out.println(availableDirections);
@@ -98,11 +98,11 @@ public class UserInterface {
     }
 
     public void enterNewRoom(Room enteredRoom, Direction direction) {
-        System.out.printf("You went %s, and entered a new room\n", direction);
+        System.out.printf("You went %s, and entered a new room\n", direction.toString().toLowerCase());
         PrintDescription(enteredRoom);
     }
     public void enterRoom(Room enteredRoom, Direction direction){
-        System.out.printf("You went %s, and entered %s \n", direction, enteredRoom.getName());
+        System.out.printf("You went %s, and entered %s \n", direction.toString().toLowerCase(), enteredRoom.getName());
     }
 
     public void turnOnLight(Room currentRoom) {
