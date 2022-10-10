@@ -8,23 +8,23 @@ public class Adventure {
     private UserInterface UI;
     private Map creator;
     private Player player;
-    public void StartAdventure(){
+    public void startAdventure(){
         UI = new UserInterface();
         creator = new Map();
         player = new Player(creator.getRoomOne());
 
-        UI.Welcome();
-        UI.ExplainGame();
-        UI.Help();
-        MainLoop();
+        UI.welcome();
+        UI.explainGame();
+        UI.help();
+        mainLoop();
     }
-    void MainLoop() {
+    void mainLoop() {
         shouldRun = true;
         Direction directionToGo = null;
         ReturnMessage returnMessage = null;
         while (shouldRun) {
             returnMessage = ReturnMessage.OK;
-            ArrayList<String> userChoice = UI.PromptUserChoice();
+            ArrayList<String> userChoice = UI.promptUserChoice();
             switch (userChoice.get(0)) {
                 case "go" -> {
                     switch (userChoice.get(1)) {
@@ -61,13 +61,13 @@ public class Adventure {
                     directionToGo = Direction.WEST;
                     returnMessage = checkAndGoDirection(directionToGo);
                 }
-                case "look" -> UI.PrintDescription(player.getCurrentRoom());
-                case "help" -> UI.Help();
-                case "exit" -> EndGame();
-                case "unlock" -> returnMessage = UnlockNearby(directionToGo);
+                case "look" -> UI.printDescription(player.getCurrentRoom());
+                case "help" -> UI.help();
+                case "exit" -> endGame();
+                case "unlock" -> returnMessage = unlockNearby(directionToGo);
                 case "turn"-> {
                     if (String.join(" " ,userChoice).equals("turn on light"))
-                        TurnOnLight();
+                        turnOnLight();
                     else returnMessage = ReturnMessage.UNKNOWN_COMMAND;
                 }
                 case "take" -> {
@@ -97,7 +97,7 @@ public class Adventure {
             }
             UI.printMessage(returnMessage);
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
-                GameOver();
+                gameOver();
         }
         UI.printMessage(returnMessage);
     }
@@ -111,15 +111,15 @@ public class Adventure {
     }
 
     private ReturnMessage equipItem(String itemToEquip) {
-        ReturnMessage returnMessage = player.EquipItem(itemToEquip);
+        ReturnMessage returnMessage = player.equipItem(itemToEquip);
         if (returnMessage == ReturnMessage.OK){
-            UI.EquipItem(itemToEquip);
+            UI.equipItem(itemToEquip);
         }
         return returnMessage;
     }
 
-    private ReturnMessage UnlockNearby(Direction directionToGo) {
-        if(!player.Unlock()) return ReturnMessage.NO_LOCKED_ROOMS;
+    private ReturnMessage unlockNearby(Direction directionToGo) {
+        if(!player.unlock()) return ReturnMessage.NO_LOCKED_ROOMS;
         checkAndGoDirection(directionToGo);
         return ReturnMessage.OK;
     }
@@ -140,7 +140,7 @@ public class Adventure {
                         UI.enterNewRoom(roomToVisit, direction);
                         roomToVisit.setVisited(true);
                     }
-                    player.GoDirection(direction);
+                    player.goDirection(direction);
                 }else {
                     returnMessage = ReturnMessage.ROOM_DARK;
                     player.setRoomToUnlock(roomToVisit);
@@ -152,8 +152,8 @@ public class Adventure {
         return returnMessage;
     }
 
-    private void TurnOnLight() {
-        if (player.TurnOnLight()){
+    private void turnOnLight() {
+        if (player.turnOnLight()){
             UI.turnOnLight(player.getCurrentRoom());
         }
     }
@@ -181,16 +181,16 @@ public class Adventure {
     }
 
 
-    private void GameOver() {
-        if (UI.TryAgain()){
-            StartAdventure();
+    private void gameOver() {
+        if (UI.tryAgain()){
+            startAdventure();
         }else{
-            EndGame();
+            endGame();
         }
     }
 
-    private void EndGame() {
-        UI.ExitMessage();
+    private void endGame() {
+        UI.exitMessage();
         shouldRun = false;
     }
 }

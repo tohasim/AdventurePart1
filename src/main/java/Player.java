@@ -24,7 +24,7 @@ public class Player {
         return currentRoom;
     }
 
-    public void GoDirection(Direction direction) {
+    public void goDirection(Direction direction) {
         Room roomToVisit = currentRoom.getRoom(direction);
         if (!roomToVisit.triedRooms.contains(currentRoom))
             roomToVisit.triedRooms.add(currentRoom);
@@ -32,7 +32,7 @@ public class Player {
         awaitingUnlock = false;
     }
 
-    public boolean Unlock() {
+    public boolean unlock() {
         if (awaitingUnlock){
             currentRoom.unlockRoom(roomToUnlock);
             awaitingUnlock = false;
@@ -43,10 +43,10 @@ public class Player {
         }
     }
 
-    public boolean TurnOnLight() {
+    public boolean turnOnLight() {
         if (!roomToUnlock.isLightOn()){
             roomToUnlock.turnOnLight();
-            GoDirection(currentRoom.getDirection(roomToUnlock));
+            goDirection(currentRoom.getDirection(roomToUnlock));
             return true;
         }
         return false;
@@ -123,7 +123,7 @@ public class Player {
         return hp;
     }
 
-    public ReturnMessage EquipItem(String itemToEquip) {
+    public ReturnMessage equipItem(String itemToEquip) {
         Item item = findInventoryItem(itemToEquip);
         if (item == null)
             return ReturnMessage.NO_ITEM_INVENTORY;

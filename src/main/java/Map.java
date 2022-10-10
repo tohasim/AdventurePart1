@@ -12,14 +12,14 @@ public class Map {
     private Room roomNine;
 
     public Map() {
-        CreateRooms();
-        SetConnections();
-        LockRooms();
-        TurnOffLights();
-        FillRoomsWithItems();
+        createRooms();
+        setConnections();
+        lockRooms();
+        turnOffLights();
+        fillRoomsWithItems();
     }
 
-    private void FillRoomsWithItems() {
+    private void fillRoomsWithItems() {
         ArrayList<Item> roomOneItems = new ArrayList<>();
         roomOneItems.add(new Item("a", "feather"));
         roomOneItems.add(new MeleeWeapon("a", "sword"));
@@ -45,17 +45,17 @@ public class Map {
         roomSix.addItems(roomSixItems);
     }
 
-    private void TurnOffLights() {
+    private void turnOffLights() {
         roomTwo.turnOffLight();
         roomEight.turnOffLight();
     }
 
-    private void LockRooms() {
+    private void lockRooms() {
         roomFour.lockRoom();
         roomFive.lockRoom();
     }
 
-    private void SetConnections() {
+    private void setConnections() {
         roomOne.setSouth(roomFour);
         roomOne.setEast(roomTwo);
         roomThree.setWest(roomTwo);
@@ -67,7 +67,7 @@ public class Map {
         roomEight.setEast(roomNine);
     }
 
-    private void CreateRooms() {
+    private void createRooms() {
         roomOne = new Room("First room");
         roomOne.setDescription("This is the first room, try to find more rooms");
 

@@ -10,16 +10,16 @@ public class UserInterface {
         keyboard = new Scanner(System.in);
     }
 
-    public void Welcome() {
+    public void welcome() {
         System.out.println("Welcome to my adventure game.");
     }
 
-    public void ExplainGame() {
+    public void explainGame() {
         System.out.println("In this game you are an adventurer, who needs to find the goal room. \n" +
                 "You do this by going from room to room, through a maze, until you reach the objective.");
     }
 
-    public void Help() {
+    public void help() {
         System.out.println("The following commands are available: \n" +
                 "-Look: get a description of the room you are in \n" +
                 "-Go {direction}: go to a room in the specified direction.\n" +
@@ -38,7 +38,7 @@ public class UserInterface {
                 "-Exit: exit the game");
     }
 
-    public ArrayList<String> PromptUserChoice() {
+    public ArrayList<String> promptUserChoice() {
         System.out.println("Please enter a command: ");
         String[] input = keyboard.nextLine().toLowerCase().trim().split(" ");
         ArrayList<String> returnList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class UserInterface {
         return returnList;
     }
 
-    public void PrintDescription(Room currentRoom) {
+    public void printDescription(Room currentRoom) {
         System.out.printf("You are in the room called \"%s\":\n" +
                 "%s\n", currentRoom.getName(), currentRoom.getDescription());
         if (!currentRoom.getItems().isEmpty()){
@@ -75,16 +75,16 @@ public class UserInterface {
         }
     }
 
-    public void ExitMessage() {
+    public void exitMessage() {
         System.out.println("Thank you for playing");
     }
 
-    public boolean TryAgain() {
+    public boolean tryAgain() {
         boolean answered = false;
         boolean tryAgain = false;
         while(!answered){
             System.out.println("Want to play again? (Yes/No)");
-            ArrayList<String> answer = PromptUserChoice();
+            ArrayList<String> answer = promptUserChoice();
             switch (answer.get(0).toLowerCase()){
                 case "yes" -> {
                     tryAgain = true;
@@ -99,7 +99,7 @@ public class UserInterface {
 
     public void enterNewRoom(Room enteredRoom, Direction direction) {
         System.out.printf("You went %s, and entered a new room\n", direction.toString().toLowerCase());
-        PrintDescription(enteredRoom);
+        printDescription(enteredRoom);
     }
     public void enterRoom(Room enteredRoom, Direction direction){
         System.out.printf("You went %s, and entered %s \n", direction.toString().toLowerCase(), enteredRoom.getName());
@@ -107,7 +107,7 @@ public class UserInterface {
 
     public void turnOnLight(Room currentRoom) {
         System.out.println("The light has been turned on, you can now see the room");
-        PrintDescription(currentRoom);
+        printDescription(currentRoom);
     }
 
     public void takeItem(Item item) {
@@ -151,7 +151,7 @@ public class UserInterface {
         System.out.printf("Your health is at %d\n", hp);
     }
 
-    public void EquipItem(String itemToEquip) {
+    public void equipItem(String itemToEquip) {
         System.out.printf("%s equipped!\n", itemToEquip);
     }
 
