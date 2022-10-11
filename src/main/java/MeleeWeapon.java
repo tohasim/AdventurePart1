@@ -1,10 +1,10 @@
 public class MeleeWeapon extends Weapon{
-    public MeleeWeapon(String name) {
-        super(name);
+    public MeleeWeapon(String name, int dmg) {
+        super(name, dmg);
     }
 
-    public MeleeWeapon(String pronoun, String name) {
-        super(pronoun, name);
+    public MeleeWeapon(String pronoun, String name, int dmg) {
+        super(pronoun, name, dmg);
     }
 
     @Override

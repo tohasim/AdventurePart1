@@ -141,4 +141,8 @@ public class Player {
             return ReturnMessage.WEAPON_OUT_OF_AMMO;
         return ReturnMessage.OK;
     }
+    private void attackEnemy(Enemy enemy){
+        int dmg = equippedWeapon.getDmg();
+        int dmgTaken = enemy.damage(dmg);
+    }
 }

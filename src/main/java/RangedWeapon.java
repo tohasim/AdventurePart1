@@ -1,13 +1,13 @@
 public class RangedWeapon extends Weapon{
     int ammo;
 
-    public RangedWeapon(String name, int ammo) {
-        super(name);
+    public RangedWeapon(String name, int dmg, int ammo) {
+        super(name, dmg);
         this.ammo = ammo;
     }
 
-    public RangedWeapon(String pronoun, String name, int ammo) {
-        super(pronoun, name);
+    public RangedWeapon(String pronoun, String name, int dmg, int ammo) {
+        super(pronoun, name, dmg);
         this.ammo = ammo;
     }
 
