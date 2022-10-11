@@ -29,6 +29,9 @@ public class Map {
         ArrayList<Item> roomTwoItems = new ArrayList<>();
         roomTwoItems.add(new Item("a", "broken key"));
         roomTwo.addItems(roomTwoItems);
+        Weapon enemyWeapon = new MeleeWeapon("a", "club", 10);
+        Enemy orc = new Enemy(enemyWeapon);
+        roomTwo.addEnemy(orc);
 
         ArrayList<Item> roomThreeItems = new ArrayList<>();
         roomThreeItems.add(new Item("a", "broken lamp"));

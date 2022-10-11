@@ -1,6 +1,7 @@
 import Enums.Direction;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Room {
     private Room north;
@@ -14,6 +15,7 @@ public class Room {
     private boolean lightOn = true;
     private ArrayList<Item> items = new ArrayList<Item>();
     public ArrayList<Room> triedRooms = new ArrayList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
 
     public Room(String name) {
         this.name = name;
@@ -139,5 +141,13 @@ public class Room {
             }
         }
         return null;
+    }
+
+    public void addEnemy(Enemy enemyToAdd){
+        enemies.add(enemyToAdd);
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }

@@ -51,6 +51,14 @@ public class UserInterface {
     public void printDescription(Room currentRoom) {
         System.out.printf("You are in the room called \"%s\":\n" +
                 "%s\n", currentRoom.getName(), currentRoom.getDescription());
+        String enemiesInRoom = "";
+        int i = 1;
+        for (Enemy enemy : currentRoom.getEnemies()) {
+            enemiesInRoom += "fjende " + i + ", ";
+            i++;
+        }
+        if (!enemiesInRoom.equals(""))
+            System.out.println("Følgende fjender: " + enemiesInRoom);
         if (!currentRoom.getItems().isEmpty()){
             String availableItems = "This room contains ";
             ArrayList<Item> items = currentRoom.getItems();

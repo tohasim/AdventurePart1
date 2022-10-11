@@ -103,7 +103,7 @@ public class Adventure {
     }
 
     private ReturnMessage attack() {
-        ReturnMessage returnMessage = player.attack();
+        ReturnMessage returnMessage = player.tryAttack();
         if(returnMessage == ReturnMessage.OK){
             UI.attack();
         }

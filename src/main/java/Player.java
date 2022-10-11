@@ -3,21 +3,18 @@ import Enums.ReturnMessage;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player extends Fighter{
     private boolean awaitingUnlock = false;
     private Room roomToUnlock = null;
     private Room currentRoom;
     private ArrayList<Item> inventory;
-    private int hp;
     private static int HP_MAX = 100;
-    private boolean dead;
-    private Weapon equippedWeapon;
 
     Player(Room currentRoom){
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
         inventory = new ArrayList<>();
-        hp = 10;
+        hp = 50;
     }
 
     public Room getCurrentRoom() {
@@ -97,16 +94,6 @@ public class Player {
             hp += healAmount;
         else hp = HP_MAX;
     }
-    public void damage(int damageAmount){
-        if (hp - damageAmount <= 0)
-            dead = true;
-        hp -= damageAmount;
-    }
-
-    public boolean isDead() {
-        return dead;
-    }
-
     public ReturnMessage eatItem(String itemToTake) {
         Item itemToEat = findInventoryItem(itemToTake);
         if (itemToEat == null)
@@ -134,15 +121,32 @@ public class Player {
         return ReturnMessage.ITEM_NOT_WEAPON;
     }
 
-    public ReturnMessage attack() {
+    public ReturnMessage tryAttack() {
         if (equippedWeapon == null)
             return ReturnMessage.NO_WEAPON_EQUIPPED;
         if (!equippedWeapon.canUse())
             return ReturnMessage.WEAPON_OUT_OF_AMMO;
+        if (currentRoom.getEnemies().isEmpty())
+            //TODO: Ændr til ordenlig return message
+            return ReturnMessage.NO_ROOM_THIS_DIRECTION;
+        attackSequence(currentRoom.getEnemies().get(0));
         return ReturnMessage.OK;
     }
-    private void attackEnemy(Enemy enemy){
-        int dmg = equippedWeapon.getDmg();
-        int dmgTaken = enemy.damage(dmg);
+    public ReturnMessage tryAttack(String enemy) {
+        if (equippedWeapon == null)
+            return ReturnMessage.NO_WEAPON_EQUIPPED;
+        if (!equippedWeapon.canUse())
+            return ReturnMessage.WEAPON_OUT_OF_AMMO;
+
+        Enemy enemyToAttack = null;
+        for (Enemy currentRoomEnemy : currentRoom.getEnemies()) {
+            if (currentRoomEnemy.toString().equals(enemy)){
+                enemyToAttack = currentRoomEnemy;
+                break;
+            }
+        }
+        if (enemyToAttack != null)
+            attackSequence(enemyToAttack);
+        return ReturnMessage.OK;
     }
 }
