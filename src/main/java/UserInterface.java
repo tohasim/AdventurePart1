@@ -20,7 +20,7 @@ public class UserInterface {
     }
 
     public void help() {
-        //TODO tilføj player status information
+
         System.out.println("The following commands are available: \n" +
                 "-Look: get a description of the room you are in \n" +
                 "-Go {direction}: go to a room in the specified direction.\n" +
@@ -64,7 +64,7 @@ public class UserInterface {
 
 
         if (!enemiesInRoom.equals(""))
-            System.out.println("Følgende fjender: " + enemiesInRoom);
+            System.out.println("Enemies in room: " + enemiesInRoom);
         if (!currentRoom.getItems().isEmpty()){
             String availableItems = "This room contains ";
             ArrayList<Item> items = currentRoom.getItems();
@@ -158,7 +158,6 @@ public class UserInterface {
         }
     }
 
-    /*TODO: Lav printPlayerStatus, den skal udskrive mængden af liv, eventuelle equippede våben (måske "no weapons equipped" hvis der ikke er nogen). Eventuelt også print inventory*/
     public void eatItem(String itemToTake) {
         System.out.printf("You ate %s\n", itemToTake);
     }
