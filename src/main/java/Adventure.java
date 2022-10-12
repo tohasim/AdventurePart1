@@ -99,7 +99,7 @@ public class Adventure {
                     else
                         returnMessage = attack("");
                 }
-                default -> returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
+                default -> returnMessage = ReturnMessage.UNKNOWN_COMMAND;
             }
             UI.printMessage(returnMessage);
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
@@ -109,11 +109,11 @@ public class Adventure {
     }
 
     private ReturnMessage attack(String name) {
-        ReturnMessage returnMessage = ReturnMessage.OK;
+        ReturnMessage returnMessage;
         if (player.equippedWeapon == null)
-            returnMessage = ReturnMessage.NO_WEAPON_EQUIPPED;
+            return ReturnMessage.NO_WEAPON_EQUIPPED;
         if (!player.equippedWeapon.canUse())
-            returnMessage = ReturnMessage.WEAPON_OUT_OF_AMMO;
+            return ReturnMessage.WEAPON_OUT_OF_AMMO;
         Enemy enemyToAttack;
         if (name.equals("")){
             if (!player.getCurrentRoom().getEnemies().isEmpty())
@@ -125,11 +125,11 @@ public class Adventure {
         if (enemyToAttack == null)
             returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
         else {
-            attackSequence(enemyToAttack);
+            returnMessage = attackSequence(enemyToAttack);
         }
         return returnMessage;
     }
-    public void attackSequence(Enemy enemyToAttack) {
+    public ReturnMessage attackSequence(Enemy enemyToAttack) {
         ReturnMessage returnMessage = ReturnMessage.OK;
         int dmgDealt = player.attackEnemy(enemyToAttack);
         if (enemyToAttack.isDead()){
@@ -138,14 +138,16 @@ public class Adventure {
             player.getCurrentRoom().dropEnemyItem(enemyToAttack.equippedWeapon);
             player.getCurrentRoom().addEnemyItem(enemyToAttack.equippedWeapon);
         }else{
+            UI.attack(player, enemyToAttack, dmgDealt, false);
             enemyToAttack.attackEnemy(player);
             if (player.isDead()){
                 UI.attack(enemyToAttack, player, dmgDealt, true);
                 gameOver();
             }
             else
-                UI.attack(player, enemyToAttack, dmgDealt, false);
+                UI.attack(enemyToAttack, player, dmgDealt, false);
         }
+        return returnMessage;
     }
 
     private ReturnMessage equipItem(String itemToEquip) {

@@ -170,8 +170,11 @@ public class UserInterface {
         System.out.printf("%s equipped!\n", itemToEquip);
     }
 
+
+
     public void attack(Fighter attacker, Fighter attackee, int dmgDealt, boolean killShot) {
-        System.out.printf("%s attacked %s for %d\n", attacker.getName(), attackee.getName(), dmgDealt);
+        System.out.printf("%s (%d HP) attacked %s (%d HP) for %d\n", attacker.getName(), attacker.getHp(), attackee.getName(), attackee.getHp() + dmgDealt, dmgDealt);
+        System.out.printf("%s has %d HP left\n", attackee.getName(), attackee.getHp());
         if (killShot) {
             System.out.printf("%s died\n", attackee.getName());
         }
