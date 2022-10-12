@@ -1,7 +1,8 @@
 BUGS:
 Vi printer stadig "You attacked the dangerous room" (UserInterface)(    DONE    )
 Manglende return message for NO_ENEMY_IN_ROOM (ReturnMessage, UserInterface, Adventure, Player) (   DONE    )
-Mangler at give besked om mængden af liv, dmg, osv, i løbet af kampen. (Fighter, UserInterface, Adventure)
-Vi skal fjerne enemy fra room når den dør (Room, Fighter)
-Individuel fejlmeddelelse for ikke korrekt enemy name
-Indsæt mellemrum mellem attacked og orc i UI for attack
+
+TORE: Mangler at give besked om mængden af liv, dmg, osv, i løbet af kampen. (UserInterface, Adventure)
+SADEK: Vi skal fjerne enemy fra room når den dør (Room, Fighter)
+TORE: Individuel fejlmeddelelse for ikke korrekt enemy name ( ReturnMessage, Adventure, UserInterface)
+SADEK: Indsæt mellemrum mellem attacked og orc i UI for attack(UserInterface)
