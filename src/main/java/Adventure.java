@@ -11,7 +11,7 @@ public class Adventure {
     public void startAdventure(){
         UI = new UserInterface();
         creator = new Map();
-        player = new Player(creator.getRoomOne());
+        player = new Player("Player", 100, creator.getRoomOne());
 
         UI.welcome();
         UI.explainGame();
@@ -125,20 +125,22 @@ public class Adventure {
             returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
         else {
             attackSequence(enemyToAttack);
-            UI.attack(enemyToAttack);
         }
         return returnMessage;
     }
     public void attackSequence(Enemy enemyToAttack) {
-        if (player.attackEnemy(enemyToAttack) == ReturnMessage.ENEMY_DEFEATED){
-            //TODO: Fjern system out herfra
-            System.out.printf("%s besejret\n", enemyToAttack.getEnemyName());
+        ReturnMessage returnMessage = ReturnMessage.OK;
+        int dmgDealt = player.attackEnemy(enemyToAttack);
+        if (enemyToAttack.isDead()){
+            UI.attack(player, enemyToAttack, dmgDealt, true);
         }else{
             enemyToAttack.attackEnemy(player);
-            if (player.isDead())
-                System.out.println("player defeated");
+            if (player.isDead()){
+                UI.attack(enemyToAttack, player, dmgDealt, true);
+                gameOver();
+            }
             else
-                System.out.println("Both live");
+                UI.attack(player, enemyToAttack, dmgDealt, false);
         }
     }
 

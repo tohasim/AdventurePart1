@@ -30,7 +30,7 @@ public class Map {
         roomTwoItems.add(new Item("a", "broken key"));
         roomTwo.addItems(roomTwoItems);
         Weapon enemyWeapon = new MeleeWeapon("a", "club", 10);
-        Enemy orc = new Enemy(enemyWeapon, "orc", 30);
+        Enemy orc = new Enemy("orc", 30, enemyWeapon);
         roomTwo.addEnemy(orc);
 
         ArrayList<Item> roomThreeItems = new ArrayList<>();

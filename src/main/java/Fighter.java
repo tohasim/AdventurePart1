@@ -1,30 +1,43 @@
-import Enums.ReturnMessage;
-
 public class Fighter {
-    public int hp;
+    private int hp;
     public Weapon equippedWeapon;
+    private String name;
     private boolean dead;
-
-
-
-
-    public ReturnMessage attackEnemy(Fighter enemy){
-        int dmg = equippedWeapon.getDmg();
-        enemy.damage(dmg);
-        if (enemy.isDead()){
-            return ReturnMessage.ENEMY_DEFEATED;
-        }
-        return ReturnMessage.OK;
+    private static int HP_MAX;
+    public Fighter(String name, int hp){
+        this.name = name;
+        this.hp = hp;
     }
 
+
+    public int attackEnemy(Fighter enemy){
+        int dmg = equippedWeapon.getDmg();
+        enemy.damage(dmg);
+        return dmg;
+    }
+
+    public void heal(int healAmount){
+        if (getHp() + healAmount < HP_MAX )
+            hp = getHp() + healAmount;
+        else hp = HP_MAX;
+    }
     public boolean isDead() {
         return dead;
     }
 
+
     public int damage(int dmg) {
-        if (hp - dmg <= 0)
+        if (getHp() - dmg <= 0)
             dead = true;
-        hp -= dmg;
+        hp = getHp() - dmg;
+        return getHp();
+    }
+
+    public int getHp() {
         return hp;
+    }
+
+    public String getName() {
+        return name;
     }
 }

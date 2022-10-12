@@ -10,13 +10,13 @@ public class Player extends Fighter{
     private ArrayList<Item> inventory;
     private static int HP_MAX = 100;
 
-    Player(Room currentRoom){
+    Player(String name, int hp, Room currentRoom){
+        super(name, hp);
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
         inventory = new ArrayList<>();
         //TODO: Fjern når lortet virker
         equippedWeapon = new MeleeWeapon("TestWeapon", 10);
-        hp = 50;
     }
 
     public Room getCurrentRoom() {
@@ -91,11 +91,7 @@ public class Player extends Fighter{
         awaitingUnlock = b;
     }
 
-    public void heal(int healAmount){
-        if (hp + healAmount < HP_MAX )
-            hp += healAmount;
-        else hp = HP_MAX;
-    }
+
     public ReturnMessage eatItem(String itemToTake) {
         Item itemToEat = findInventoryItem(itemToTake);
         if (itemToEat == null)
@@ -106,10 +102,6 @@ public class Player extends Fighter{
             return ReturnMessage.OK;
         }
         return ReturnMessage.ITEM_NOT_FOOD;
-    }
-
-    public int getHp() {
-        return hp;
     }
 
     public ReturnMessage equipItem(String itemToEquip) {

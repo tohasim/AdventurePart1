@@ -153,7 +153,7 @@ public class Room {
 
     public Enemy findEnemy(String name) {
         for (Enemy enemy : enemies) {
-            if (enemy.getEnemyName().trim().equalsIgnoreCase(name.trim()))
+            if (enemy.getName().trim().equalsIgnoreCase(name.trim()))
                 return enemy;
         }
         return null;

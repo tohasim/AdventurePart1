@@ -53,7 +53,7 @@ public class UserInterface {
                 "%s\n", currentRoom.getName(), currentRoom.getDescription());
         String enemiesInRoom = "";
         for (Enemy enemy : currentRoom.getEnemies()) {
-            enemiesInRoom += enemy.getEnemyName() + ", ";
+            enemiesInRoom += enemy.getName() + ", ";
         }
         enemiesInRoom = enemiesInRoom.substring(0, enemiesInRoom.length() - 2);
 
@@ -164,7 +164,10 @@ public class UserInterface {
         System.out.printf("%s equipped!\n", itemToEquip);
     }
 
-    public void attack(Enemy enemy) {
-        System.out.println("You have now attacked" + enemy.getEnemyName());
+    public void attack(Fighter attacker, Fighter attackee, int dmgDealt, boolean killShot) {
+        System.out.printf("%s attacked %s for %d\n", attacker.getName(), attackee.getName(), dmgDealt);
+        if (killShot){
+            System.out.printf("%s died\n", attackee.getName());
+        }
     }
 }
