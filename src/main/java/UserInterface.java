@@ -33,6 +33,7 @@ public class UserInterface {
                 "-Place {item}: place the item specified in {item} from your inventory to the room\n" +
                 "-Eat {food item}: eat a piece of food from your inventory\n" +
                 "-Inventory: show inventory\n" +
+                "-Player Status: show player HP, equipped weapons\n" +
                 "-Turn on light: light a dark room \n" +
                 "-Unlock: unlock a locked door\n" +
                 "-Help: get this message \n" +
@@ -164,6 +165,10 @@ public class UserInterface {
 
     public void printHealth(int hp) {
         System.out.printf("Your health is at %d\n", hp);
+    }
+    public void printPlayerStatus(Player player){
+        System.out.printf("Player has: \nhealth: %d \nEquipped items: %s\n", player.getHp(), player.equippedWeapon );
+        printInventory(player.getInventory());
     }
 
     public void equipItem(String itemToEquip) {

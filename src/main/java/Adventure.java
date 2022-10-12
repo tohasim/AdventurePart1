@@ -92,6 +92,9 @@ public class Adventure {
                     String itemToEquip = String.join(" ", userChoice);
                     returnMessage = equipItem(itemToEquip);
                 }
+                case "player" -> {
+                    if (String.join(" " ,userChoice).equals("player status"))
+                        UI.printPlayerStatus(player);}
                 //TODO: Tilføj en case for "player status"
                 case "attack" -> {
                     if (userChoice.size() == 2)
@@ -214,6 +217,7 @@ public class Adventure {
         ReturnMessage returnMessage = player.eatItem(itemToTake);
         if (returnMessage == ReturnMessage.OK){
             UI.eatItem(itemToTake);
+
         }
         return returnMessage;
     }
