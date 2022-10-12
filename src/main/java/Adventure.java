@@ -133,6 +133,9 @@ public class Adventure {
         int dmgDealt = player.attackEnemy(enemyToAttack);
         if (enemyToAttack.isDead()){
             UI.attack(player, enemyToAttack, dmgDealt, true);
+            player.getCurrentRoom().removeEnemy(enemyToAttack);
+            player.getCurrentRoom().dropEnemyItem(enemyToAttack.equippedWeapon);
+            player.getCurrentRoom().addEnemyItem(enemyToAttack.equippedWeapon);
         }else{
             enemyToAttack.attackEnemy(player);
             if (player.isDead()){

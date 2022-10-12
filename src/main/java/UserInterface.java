@@ -55,7 +55,11 @@ public class UserInterface {
         for (Enemy enemy : currentRoom.getEnemies()) {
             enemiesInRoom += enemy.getName() + ", ";
         }
-        enemiesInRoom = enemiesInRoom.substring(0, enemiesInRoom.length() - 2);
+        if (enemiesInRoom.length() != 0){
+            enemiesInRoom = enemiesInRoom.substring(0, enemiesInRoom.length() - 2);
+        }
+
+
 
         if (!enemiesInRoom.equals(""))
             System.out.println("Følgende fjender: " + enemiesInRoom);
@@ -166,7 +170,7 @@ public class UserInterface {
 
     public void attack(Fighter attacker, Fighter attackee, int dmgDealt, boolean killShot) {
         System.out.printf("%s attacked %s for %d\n", attacker.getName(), attackee.getName(), dmgDealt);
-        if (killShot){
+        if (killShot) {
             System.out.printf("%s died\n", attackee.getName());
         }
     }

@@ -1,4 +1,5 @@
 import Enums.Direction;
+import Enums.ReturnMessage;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -157,5 +158,15 @@ public class Room {
                 return enemy;
         }
         return null;
+    }
+    public void removeEnemy(Enemy enemyToRemove){
+        enemies.remove(enemyToRemove);
+    }
+    public void dropEnemyItem(Item enemyItemToDrop){
+        items.remove(enemyItemToDrop);
+
+    }
+    public void addEnemyItem(Item enemyItemToAdd){
+        items.add(enemyItemToAdd);
     }
 }
