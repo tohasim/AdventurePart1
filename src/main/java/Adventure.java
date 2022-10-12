@@ -113,7 +113,7 @@ public class Adventure {
     private ReturnMessage equipItem(String itemToEquip) {
         ReturnMessage returnMessage = player.equipItem(itemToEquip);
         if (returnMessage == ReturnMessage.OK){
-            UI.equipItem(itemToEquip);
+            UI.equipItem(player.equippedWeapon.getName());
         }
         return returnMessage;
     }

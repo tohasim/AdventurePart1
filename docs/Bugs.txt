@@ -1,0 +1,5 @@
+BUGS: 
+Manglende return message for NO_ENEMY_IN_ROOM (ReturnMessage, UserInterface, Adventure, Player)
+Mangler at give besked om mængden af liv, dmg, osv, i løbet af kampen. (Fighter, UserInterface, Adventure)
+Vi printer stadig "You attacked the dangerous room"(UserInterface)
+Vi skal fjerne enemy fra room når den dør(Room, Fighter)

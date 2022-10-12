@@ -16,4 +16,8 @@ public abstract class Weapon extends Item{
     public int getDmg() {
         return dmg;
     }
+
+    public String getName() {
+        return name;
+    }
 }
