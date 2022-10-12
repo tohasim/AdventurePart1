@@ -13,12 +13,16 @@ public class RangedWeapon extends Weapon{
 
     @Override
     public boolean canUse() {
-        ammo -= 1;
-        return (ammo >= 0);
+        return (ammo > 0);
+    }
+
+    @Override
+    public void use() {
+        ammo--;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (ammo: " + ammo + ")";
+        return super.toString() + String.format(" (ammo: %d, dmg: %d)", ammo, dmg);
     }
 }

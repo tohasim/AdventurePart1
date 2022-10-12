@@ -11,6 +11,7 @@ public class Fighter {
 
 
     public int attackEnemy(Fighter enemy){
+        equippedWeapon.use();
         int dmg = equippedWeapon.getDmg();
         enemy.damage(dmg);
         return dmg;

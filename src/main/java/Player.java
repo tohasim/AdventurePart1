@@ -113,6 +113,7 @@ public class Player extends Fighter{
 
     public ReturnMessage attackRock() {
         if (equippedWeapon.canUse()){
+            equippedWeapon.use();
             return ReturnMessage.ROCK_ATTACKED;
         }
         return ReturnMessage.WEAPON_OUT_OF_AMMO;

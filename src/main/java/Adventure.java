@@ -129,10 +129,11 @@ public class Adventure {
             }
             else enemyToAttack = player.getCurrentRoom().findEnemy(name);
         }
-        if (enemyToAttack == null)
-            returnMessage = ReturnMessage.NO_ENEMY_WITH_MATCHING_NAME;
-        else {
+        if (enemyToAttack == null) {
             UI.printMessage(player.attackRock());
+            returnMessage = ReturnMessage.NO_ENEMY_WITH_MATCHING_NAME;
+        }
+        else {
             returnMessage = attackSequence(enemyToAttack);
         }
         return returnMessage;
