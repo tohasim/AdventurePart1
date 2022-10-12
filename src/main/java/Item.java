@@ -1,5 +1,5 @@
 public class Item {
-    private String name;
+    protected String name;
     private String pronoun = "";
 
     public Item(String name) {
