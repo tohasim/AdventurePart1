@@ -95,7 +95,6 @@ public class Adventure {
                 case "player" -> {
                     if (String.join(" " ,userChoice).equals("player status"))
                         UI.printPlayerStatus(player);}
-                //TODO: Tilføj en case for "player status"
                 case "attack" -> {
                     if (userChoice.size() == 2)
                         returnMessage = attack(userChoice.get(1));

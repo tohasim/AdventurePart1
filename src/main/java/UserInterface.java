@@ -63,7 +63,7 @@ public class UserInterface {
 
 
         if (!enemiesInRoom.equals(""))
-            System.out.println("Følgende fjender: " + enemiesInRoom);
+            System.out.println("Enemies in room: " + enemiesInRoom);
         if (!currentRoom.getItems().isEmpty()){
             String availableItems = "This room contains ";
             ArrayList<Item> items = currentRoom.getItems();
