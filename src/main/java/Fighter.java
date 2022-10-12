@@ -9,7 +9,7 @@ public class Fighter {
         if (attackEnemy(enemyToAttack) == ReturnMessage.ENEMY_DEFEATED){
             //TODO: Ændr fjende til enemyToAttack.getName();
                         //TODO: Fjern system out herfra
-            System.out.printf("%s besejret\n", "fjende");
+            System.out.printf("%s besejret\n", enemyToAttack.getEnemyName());
         }else{
             enemyToAttack.attackEnemy(this);
             if (dead)
