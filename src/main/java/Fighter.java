@@ -3,7 +3,7 @@ public class Fighter {
     public Weapon equippedWeapon;
     private String name;
     private boolean dead;
-    private static int HP_MAX;
+    private static int HP_MAX = 100;
     public Fighter(String name, int hp){
         this.name = name;
         this.hp = hp;

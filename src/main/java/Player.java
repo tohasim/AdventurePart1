@@ -8,15 +8,12 @@ public class Player extends Fighter{
     private Room roomToUnlock = null;
     private Room currentRoom;
     private ArrayList<Item> inventory;
-    private static int HP_MAX = 100;
 
     Player(String name, int hp, Room currentRoom){
         super(name, hp);
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
         inventory = new ArrayList<>();
-        //TODO: Fjern når lortet virker
-        equippedWeapon = new MeleeWeapon("TestWeapon", 10);
     }
 
     public Room getCurrentRoom() {

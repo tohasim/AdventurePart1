@@ -20,7 +20,6 @@ public class UserInterface {
     }
 
     public void help() {
-        //TODO tilføj player status information
         System.out.println("The following commands are available: \n" +
                 "-Look: get a description of the room you are in \n" +
                 "-Go {direction}: go to a room in the specified direction.\n" +
@@ -132,10 +131,13 @@ public class UserInterface {
         System.out.printf("You placed %s in the room.\n", item);
     }
     public void printInventory(ArrayList<Item> inventory){
-        System.out.println("Your inventory: ");
-        for (Item item : inventory) {
-            System.out.printf(" -%s\n", item);
-        }
+        if (!inventory.isEmpty()){
+            System.out.println("Your inventory: ");
+            for (Item item : inventory) {
+                System.out.printf(" -%s\n", item);
+            }
+        }else
+            System.out.println("Your inventory is empty");
     }
 
     public void printMessage(ReturnMessage returnMessage) {
@@ -158,17 +160,23 @@ public class UserInterface {
         }
     }
 
-    /*TODO: Lav printPlayerStatus, den skal udskrive mængden af liv, eventuelle equippede våben (måske "no weapons equipped" hvis der ikke er nogen). Eventuelt også print inventory*/
     public void eatItem(String itemToTake) {
         System.out.printf("You ate %s\n", itemToTake);
     }
 
-    public void printHealth(int hp) {
-        System.out.printf("Your health is at %d\n", hp);
-    }
     public void printPlayerStatus(Player player){
-        System.out.printf("Player has: \nhealth: %d \nEquipped items: %s\n", player.getHp(), player.equippedWeapon );
+        printHealth(player.getHp());
+        printEquipped(player.equippedWeapon);
         printInventory(player.getInventory());
+    }
+
+    public void printHealth(int hp) {
+        System.out.printf("HP: %d\n", hp);
+    }
+    private void printEquipped(Weapon equippedWeapon) {
+        if (equippedWeapon != null)
+            System.out.printf("Equipped items: %s\n", equippedWeapon);
+        else System.out.println("You do not have a weapon equipped");
     }
 
     public void equipItem(String itemToEquip) {
@@ -178,7 +186,7 @@ public class UserInterface {
 
 
     public void attack(Fighter attacker, Fighter attackee, int dmgDealt, boolean killShot) {
-        System.out.printf("%s (%d HP) attacked %s (%d HP) for %d\n", attacker.getName(), attacker.getHp(), attackee.getName(), attackee.getHp() + dmgDealt, dmgDealt);
+        System.out.printf("%s (%d HP) attacked %s (%d HP) with %s for %d HP\n", attacker.getName(), attacker.getHp(), attackee.getName(), attackee.getHp() + dmgDealt, attacker.equippedWeapon, dmgDealt);
         System.out.printf("%s has %d HP left\n", attackee.getName(), attackee.getHp());
         if (killShot) {
             System.out.printf("%s died\n", attackee.getName());
