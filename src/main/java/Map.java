@@ -23,14 +23,14 @@ public class Map {
         ArrayList<Item> roomOneItems = new ArrayList<>();
         roomOneItems.add(new Item("a", "feather"));
         roomOneItems.add(new MeleeWeapon("a", "sword", 10));
-        roomOneItems.add(new RangedWeapon("a", "bow", 10, 10));
+        roomOneItems.add(new RangedWeapon("a", "bow", 5, 10));
         roomOne.addItems(roomOneItems);
 
         ArrayList<Item> roomTwoItems = new ArrayList<>();
         roomTwoItems.add(new Item("a", "broken key"));
         roomTwo.addItems(roomTwoItems);
-        Weapon enemyWeapon = new MeleeWeapon("a", "club", 10);
-        Enemy orc = new Enemy("orc", 30, enemyWeapon);
+        Weapon enemyWeapon = new MeleeWeapon("a", "club", 5);
+        Enemy orc = new Enemy("orc", 50, enemyWeapon);
         roomTwo.addEnemy(orc);
 
         ArrayList<Item> roomThreeItems = new ArrayList<>();

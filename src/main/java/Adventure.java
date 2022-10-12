@@ -122,32 +122,38 @@ public class Adventure {
                 enemyToAttack = player.getCurrentRoom().getEnemies().get(0);
             else enemyToAttack = null;
         }
-        else
-            enemyToAttack = player.getCurrentRoom().findEnemy(name);
+        else{
+            if (player.getCurrentRoom().getEnemies().isEmpty()){
+                UI.printMessage(player.attackRock());
+                return ReturnMessage.NO_ENEMY_IN_ROOM;
+            }
+            else enemyToAttack = player.getCurrentRoom().findEnemy(name);
+        }
         if (enemyToAttack == null)
-            returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
+            returnMessage = ReturnMessage.NO_ENEMY_WITH_MATCHING_NAME;
         else {
+            UI.printMessage(player.attackRock());
             returnMessage = attackSequence(enemyToAttack);
         }
         return returnMessage;
     }
     public ReturnMessage attackSequence(Enemy enemyToAttack) {
         ReturnMessage returnMessage = ReturnMessage.OK;
-        int dmgDealt = player.attackEnemy(enemyToAttack);
+        int playerDmgDealt = player.attackEnemy(enemyToAttack);
         if (enemyToAttack.isDead()){
-            UI.attack(player, enemyToAttack, dmgDealt, true);
+            UI.attack(player, enemyToAttack, playerDmgDealt, true);
             player.getCurrentRoom().removeEnemy(enemyToAttack);
             player.getCurrentRoom().dropEnemyItem(enemyToAttack.equippedWeapon);
             player.getCurrentRoom().addEnemyItem(enemyToAttack.equippedWeapon);
         }else{
-            UI.attack(player, enemyToAttack, dmgDealt, false);
-            enemyToAttack.attackEnemy(player);
+            UI.attack(player, enemyToAttack, playerDmgDealt, false);
+            int enemyDmgDealt = enemyToAttack.attackEnemy(player);
             if (player.isDead()){
-                UI.attack(enemyToAttack, player, dmgDealt, true);
+                UI.attack(enemyToAttack, player, enemyDmgDealt, true);
                 gameOver();
             }
             else
-                UI.attack(enemyToAttack, player, dmgDealt, false);
+                UI.attack(enemyToAttack, player, enemyDmgDealt, false);
         }
         return returnMessage;
     }

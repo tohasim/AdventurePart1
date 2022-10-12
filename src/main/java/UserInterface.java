@@ -157,6 +157,8 @@ public class UserInterface {
             case WEAPON_OUT_OF_AMMO -> System.out.println("Out of ammo!");
             case NO_WEAPON_EQUIPPED -> System.out.println("You do not have a weapon equipped");
             case NO_ENEMY_IN_ROOM -> System.out.println("There is no enemy in this room");
+            case NO_ENEMY_WITH_MATCHING_NAME -> System.out.println("No enemy with that name found");
+            case ROCK_ATTACKED -> System.out.println("You couldn't find the enemy, and hit the nearest rock in confusion");
         }
     }
 
