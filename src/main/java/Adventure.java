@@ -92,6 +92,7 @@ public class Adventure {
                     String itemToEquip = String.join(" ", userChoice);
                     returnMessage = equipItem(itemToEquip);
                 }
+                //TODO: Tilføj en case for "player status"
                 case "attack" -> {
                     if (userChoice.size() == 2)
                         returnMessage = attack(userChoice.get(1));
