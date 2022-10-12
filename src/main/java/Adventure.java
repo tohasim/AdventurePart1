@@ -130,9 +130,15 @@ public class Adventure {
         return returnMessage;
     }
     public void attackSequence(Enemy enemyToAttack) {
+
+
         if (player.attackEnemy(enemyToAttack) == ReturnMessage.ENEMY_DEFEATED){
             //TODO: Fjern system out herfra
             System.out.printf("%s besejret\n", enemyToAttack.getEnemyName());
+            player.getCurrentRoom().removeEnemy(enemyToAttack);
+            player.getCurrentRoom().dropEnemyItem(enemyToAttack.equippedWeapon);
+            player.getCurrentRoom().addEnemyItem(enemyToAttack.equippedWeapon);
+
         }else{
             enemyToAttack.attackEnemy(player);
             if (player.isDead())
@@ -140,7 +146,9 @@ public class Adventure {
             else
                 System.out.println("Both live");
         }
-    }
+
+        }
+
 
     private ReturnMessage equipItem(String itemToEquip) {
         ReturnMessage returnMessage = player.equipItem(itemToEquip);

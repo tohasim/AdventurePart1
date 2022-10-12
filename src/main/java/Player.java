@@ -123,6 +123,8 @@ public class Player extends Fighter{
         return ReturnMessage.ITEM_NOT_WEAPON;
     }
 
+
+
     /*public ReturnMessage tryAttack() {
 
     }

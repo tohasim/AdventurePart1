@@ -55,7 +55,11 @@ public class UserInterface {
         for (Enemy enemy : currentRoom.getEnemies()) {
             enemiesInRoom += enemy.getEnemyName() + ", ";
         }
-        enemiesInRoom = enemiesInRoom.substring(0, enemiesInRoom.length() - 2);
+        if (enemiesInRoom.length() != 0){
+            enemiesInRoom = enemiesInRoom.substring(0, enemiesInRoom.length() - 2);
+        }
+
+
 
         if (!enemiesInRoom.equals(""))
             System.out.println("Følgende fjender: " + enemiesInRoom);
@@ -165,6 +169,6 @@ public class UserInterface {
     }
 
     public void attack(Enemy enemy) {
-        System.out.println("You have now attacked" + enemy.getEnemyName());
+        System.out.println("You have now attacked " + enemy.getEnemyName());
     }
 }

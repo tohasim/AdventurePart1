@@ -14,6 +14,5 @@ private String enemyName;
         return hp;
     }
 
-
     }
 
