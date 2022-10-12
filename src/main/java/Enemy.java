@@ -1,5 +1,6 @@
 public class Enemy extends Fighter{
-    //TODO: Giv enemy et equiped weapon + hp
+
+    //todo: lav private string navn, og tilføj til konstruktor samt lav getter
     public Enemy(Weapon equippedWeapon) {
         this.equippedWeapon = equippedWeapon;
         hp = 30;

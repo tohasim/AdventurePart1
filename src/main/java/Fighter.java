@@ -7,15 +7,16 @@ public class Fighter {
 
     public void attackSequence(Enemy enemyToAttack) {
         if (attackEnemy(enemyToAttack) == ReturnMessage.ENEMY_DEFEATED){
-            //TODO: Fjern system out herfra
+            //TODO: Ændr fjende til enemyToAttack.getName();
+                        //TODO: Fjern system out herfra
             System.out.printf("%s besejret\n", "fjende");
         }else{
             enemyToAttack.attackEnemy(this);
+            if (dead)
+                System.out.println("player defeated");
+            else
+                System.out.println("Both live");
         }
-        if (dead)
-            System.out.println("player defeated");
-        else
-            System.out.println("Both live");
     }
 
 
@@ -37,7 +38,5 @@ public class Fighter {
             dead = true;
         hp -= dmg;
         return hp;
-        //TODO: Implementer enemy damage og returner hvor meget enemy dealer
     }
-
 }
