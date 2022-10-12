@@ -72,7 +72,7 @@ public class Adventure {
                 }
                 case "take" -> {
                     userChoice.remove(0);
-                    String itemToTake = String.join(" ", userChoice);
+                    String itemToTake = String.join(" ", userChoice).toLowerCase();
                     returnMessage = takeItem(itemToTake);
                 }
                 case "place" -> {
@@ -214,11 +214,11 @@ public class Adventure {
         UI.takeItem(player.findInventoryItem(interactItem));
         return ReturnMessage.OK;
     }
-    private ReturnMessage eatItem(String itemToTake) {
-        ReturnMessage returnMessage = player.eatItem(itemToTake);
+    private ReturnMessage eatItem(String itemToEatName) {
+        Item itemToEat = player.findInventoryItem(itemToEatName);
+        ReturnMessage returnMessage = player.eatItem(itemToEat);
         if (returnMessage == ReturnMessage.OK){
-            UI.eatItem(itemToTake);
-
+            UI.eatItem((FoodItem) itemToEat);
         }
         return returnMessage;
     }

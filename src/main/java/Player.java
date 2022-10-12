@@ -74,7 +74,7 @@ public class Player extends Fighter{
 
     public Item findInventoryItem(String itemToFind){
         for (Item item : inventory) {
-            if (item.toString().contains(itemToFind))
+            if (item.toString().toLowerCase().contains(itemToFind))
                 return item;
         }
         return null;
@@ -89,8 +89,7 @@ public class Player extends Fighter{
     }
 
 
-    public ReturnMessage eatItem(String itemToTake) {
-        Item itemToEat = findInventoryItem(itemToTake);
+    public ReturnMessage eatItem(Item itemToEat) {
         if (itemToEat == null)
             return ReturnMessage.NO_ITEM_INVENTORY;
         if (itemToEat instanceof FoodItem food){

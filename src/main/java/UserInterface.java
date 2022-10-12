@@ -160,7 +160,7 @@ public class UserInterface {
         }
     }
 
-    public void eatItem(String itemToTake) {
+    public void eatItem(FoodItem itemToTake) {
         System.out.printf("You ate %s\n", itemToTake);
     }
 
