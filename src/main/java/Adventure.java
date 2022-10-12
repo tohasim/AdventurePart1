@@ -93,7 +93,7 @@ public class Adventure {
                     returnMessage = equipItem(itemToEquip);
                 }
                 case "attack" -> returnMessage = attack();
-                default -> returnMessage = ReturnMessage.UNKNOWN_COMMAND;
+                default -> returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
             }
             UI.printMessage(returnMessage);
             if (player.getCurrentRoom().getName().equals("Ninth room") || player.getCurrentRoom().getName().equals("GOAAAAAL"))
@@ -103,11 +103,29 @@ public class Adventure {
     }
 
     private ReturnMessage attack() {
-        ReturnMessage returnMessage = player.tryAttack();
-        if(returnMessage == ReturnMessage.OK){
-            UI.attack();
-        }
+        ReturnMessage returnMessage = ReturnMessage.OK;
+        if (player.equippedWeapon == null)
+            returnMessage = ReturnMessage.NO_WEAPON_EQUIPPED;
+        if (!player.equippedWeapon.canUse())
+            returnMessage = ReturnMessage.WEAPON_OUT_OF_AMMO;
+        Enemy enemyToAttack = player.getCurrentRoom().getEnemies().get(0);
+        if (enemyToAttack == null)
+            returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
+        attackSequence(enemyToAttack);
+        UI.attack(enemyToAttack);
         return returnMessage;
+    }
+    public void attackSequence(Enemy enemyToAttack) {
+        if (player.attackEnemy(enemyToAttack) == ReturnMessage.ENEMY_DEFEATED){
+            //TODO: Fjern system out herfra
+            System.out.printf("%s besejret\n", enemyToAttack.getEnemyName());
+        }else{
+            enemyToAttack.attackEnemy(player);
+            if (player.isDead())
+                System.out.println("player defeated");
+            else
+                System.out.println("Both live");
+        }
     }
 
     private ReturnMessage equipItem(String itemToEquip) {

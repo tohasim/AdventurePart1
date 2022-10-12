@@ -121,17 +121,11 @@ public class Player extends Fighter{
         return ReturnMessage.ITEM_NOT_WEAPON;
     }
 
-    public ReturnMessage tryAttack() {
-        if (equippedWeapon == null)
-            return ReturnMessage.NO_WEAPON_EQUIPPED;
-        if (!equippedWeapon.canUse())
-            return ReturnMessage.WEAPON_OUT_OF_AMMO;
-        if (currentRoom.getEnemies().isEmpty())
-            //TODO: Ændr til ordenlig return message
-            return ReturnMessage.NO_ROOM_THIS_DIRECTION;
-        attackSequence(currentRoom.getEnemies().get(0));
-        return ReturnMessage.OK;
+    /*public ReturnMessage tryAttack() {
+
     }
+
+     */
     public ReturnMessage tryAttack(String enemy) {
         if (equippedWeapon == null)
             return ReturnMessage.NO_WEAPON_EQUIPPED;

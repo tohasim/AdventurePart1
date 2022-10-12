@@ -148,6 +148,7 @@ public class UserInterface {
             case ATTACK_UNSUCCESSFUL -> System.out.println("Attack unsuccessful, do you have a weapon equipped? Or maybe it's out of ammo?");
             case WEAPON_OUT_OF_AMMO -> System.out.println("Out of ammo!");
             case NO_WEAPON_EQUIPPED -> System.out.println("You do not have a weapon equipped");
+            case NO_ENEMY_IN_ROOM -> System.out.println("There is no enemy in this room");
         }
     }
 
@@ -163,7 +164,7 @@ public class UserInterface {
         System.out.printf("%s equipped!\n", itemToEquip);
     }
 
-    public void attack() {
-        System.out.println("You attacked the dangerous room");
+    public void attack(Enemy enemy) {
+        System.out.println("You have now attacked" + enemy.getEnemyName());
     }
 }
