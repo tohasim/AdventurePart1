@@ -52,11 +52,11 @@ public class UserInterface {
         System.out.printf("You are in the room called \"%s\":\n" +
                 "%s\n", currentRoom.getName(), currentRoom.getDescription());
         String enemiesInRoom = "";
-        int i = 1;
         for (Enemy enemy : currentRoom.getEnemies()) {
-            enemiesInRoom += "fjende " + i + ", ";
-            i++;
+            enemiesInRoom += enemy.getEnemyName() + ", ";
         }
+        enemiesInRoom = enemiesInRoom.substring(0, enemiesInRoom.length() - 2);
+
         if (!enemiesInRoom.equals(""))
             System.out.println("Følgende fjender: " + enemiesInRoom);
         if (!currentRoom.getItems().isEmpty()){

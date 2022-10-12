@@ -14,6 +14,8 @@ public class Player extends Fighter{
         this.currentRoom = currentRoom;
         this.currentRoom.setVisited(true);
         inventory = new ArrayList<>();
+        //TODO: Fjern når lortet virker
+        equippedWeapon = new MeleeWeapon("TestWeapon", 10);
         hp = 50;
     }
 
@@ -126,7 +128,7 @@ public class Player extends Fighter{
     }
 
      */
-    public ReturnMessage tryAttack(String enemy) {
+    /*public ReturnMessage tryAttack(String enemy) {
         if (equippedWeapon == null)
             return ReturnMessage.NO_WEAPON_EQUIPPED;
         if (!equippedWeapon.canUse())
@@ -142,5 +144,5 @@ public class Player extends Fighter{
         if (enemyToAttack != null)
             attackSequence(enemyToAttack);
         return ReturnMessage.OK;
-    }
+    }*/
 }

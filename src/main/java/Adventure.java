@@ -92,7 +92,12 @@ public class Adventure {
                     String itemToEquip = String.join(" ", userChoice);
                     returnMessage = equipItem(itemToEquip);
                 }
-                case "attack" -> returnMessage = attack();
+                case "attack" -> {
+                    if (userChoice.size() == 2)
+                        returnMessage = attack(userChoice.get(1));
+                    else
+                        returnMessage = attack("");
+                }
                 default -> returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
             }
             UI.printMessage(returnMessage);
@@ -102,17 +107,26 @@ public class Adventure {
         UI.printMessage(returnMessage);
     }
 
-    private ReturnMessage attack() {
+    private ReturnMessage attack(String name) {
         ReturnMessage returnMessage = ReturnMessage.OK;
         if (player.equippedWeapon == null)
             returnMessage = ReturnMessage.NO_WEAPON_EQUIPPED;
         if (!player.equippedWeapon.canUse())
             returnMessage = ReturnMessage.WEAPON_OUT_OF_AMMO;
-        Enemy enemyToAttack = player.getCurrentRoom().getEnemies().get(0);
+        Enemy enemyToAttack;
+        if (name.equals("")){
+            if (!player.getCurrentRoom().getEnemies().isEmpty())
+                enemyToAttack = player.getCurrentRoom().getEnemies().get(0);
+            else enemyToAttack = null;
+        }
+        else
+            enemyToAttack = player.getCurrentRoom().findEnemy(name);
         if (enemyToAttack == null)
             returnMessage = ReturnMessage.NO_ENEMY_IN_ROOM;
-        attackSequence(enemyToAttack);
-        UI.attack(enemyToAttack);
+        else {
+            attackSequence(enemyToAttack);
+            UI.attack(enemyToAttack);
+        }
         return returnMessage;
     }
     public void attackSequence(Enemy enemyToAttack) {

@@ -150,4 +150,12 @@ public class Room {
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
+    public Enemy findEnemy(String name) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getEnemyName().trim().equalsIgnoreCase(name.trim()))
+                return enemy;
+        }
+        return null;
+    }
 }
